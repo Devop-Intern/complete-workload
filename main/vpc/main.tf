@@ -56,3 +56,14 @@ resource "aws_security_group_rule" "access_rule" {
   # module.eks.eks_managed_node_groups.sup_node.security_group_id
   cidr_blocks = var.security_group_rule_cidr_blocks
 }
+
+resource "aws_security_group_rule" "access_rule2" {
+  type              = var.security_group_rule_type2
+  description       = var.security_group_rule_description2
+  from_port         = var.security_group_rule_form_port2
+  to_port           = var.security_group_rule_to_port2
+  protocol          = var.security_group_rule_protocol2
+  security_group_id = var.security_group_id2
+  # module.eks.eks_managed_node_groups.sup_node.security_group_id
+  cidr_blocks = var.security_group_rule_cidr_blocks2
+}

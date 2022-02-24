@@ -54,7 +54,17 @@ module "vpc" {
   security_group_rule_protocol    = "all"
   security_group_id               = module.eks.eks_managed_node_groups.newMNG.security_group_id
   security_group_rule_cidr_blocks = ["0.0.0.0/0"]
+
+  #secutity group rule egress
+  security_group_rule_type2        = "egress"
+  security_group_rule_description2 = "outbound all port"
+  security_group_rule_form_port2   = 0
+  security_group_rule_to_port2     = 65535
+  security_group_rule_protocol2    = "all"
+  security_group_id2               = module.eks.eks_managed_node_groups.newMNG.security_group_id
+  security_group_rule_cidr_blocks2 = ["0.0.0.0/0"]
 }
+
 
 module "rds" {
   source = "./rds"

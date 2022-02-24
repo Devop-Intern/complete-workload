@@ -1,4 +1,5 @@
 resource "kubectl_manifest" "new-app" {
+  depends_on = [helm_release.argocd-helm]
   yaml_body = <<YAML
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -45,7 +46,7 @@ spec:
           scriptname: /pgadmin
         ingress:
           name: ingress-ctl
-          host: newnlb-356131cf57f7a9d0.elb.ap-southeast-1.amazonaws.com
+          host: newnlb-a648cc7f9b408982.elb.ap-southeast-1.amazonaws.com
           annotations:
             kubernetes.io/ingress.class: nginx
             nginx.org/rewrites: "serviceName=pgadmin-svc rewrite=/pgadmin"

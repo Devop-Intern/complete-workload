@@ -121,6 +121,42 @@ variable "security_group_rule_cidr_blocks" {
   default     = []
 }
 
+#security group rules2
+variable "security_group_rule_type2" {
+  description = "Type of security group rule"
+  type        = string
+  default     = ""
+}
+variable "security_group_rule_description2" {
+  description = "Description of security group rule"
+  type        = string
+  default     = ""
+}
+variable "security_group_rule_form_port2" {
+  description = "Access from port of security group rule"
+  type        = number
+  default     = 0
+}
+variable "security_group_rule_to_port2" {
+  description = "Access to port of security group rule"
+  type        = number
+  default     = 0
+}
+variable "security_group_rule_protocol2" {
+  description = "Protocol of security group rule"
+  type        = string
+  default     = ""
+}
+variable "security_group_id2" {
+  description = "ID of security group"
+  type        = string
+  default     = ""
+}
+variable "security_group_rule_cidr_blocks2" {
+  description = "cidr blocks of security group rule"
+  type        = list(string)
+  default     = []
+}
 
 
 
