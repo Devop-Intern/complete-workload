@@ -46,7 +46,7 @@ spec:
           scriptname: /pgadmin
         ingress:
           name: ingress-ctl
-          host: newnlb-a648cc7f9b408982.elb.ap-southeast-1.amazonaws.com
+          host: ${module.vpc.lb_dns_name}
           annotations:
             kubernetes.io/ingress.class: nginx
             nginx.org/rewrites: "serviceName=pgadmin-svc rewrite=/pgadmin"
