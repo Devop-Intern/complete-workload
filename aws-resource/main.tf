@@ -121,3 +121,9 @@ module "rds" {
 #   create_namespace = true
 #   namespace        = "argocd"
 # }
+
+resource "null_resource" "kubectl" {
+  provisioner "local-exec" {
+    command = "aws eks update-kubeconfig --region ap-southeast-1 --name new-cluster-3 --profile produser"
+  }
+}
