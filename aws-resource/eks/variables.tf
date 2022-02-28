@@ -30,7 +30,7 @@ variable "subnet_ids" {
   default     = []
 }
 
-#EKS managed node group
+#EKS managed node group default
 variable "ami_type" {
   description = "Ami type of manage node group"
   type        = string
@@ -46,6 +46,8 @@ variable "default_instance_types" {
   type        = list(string)
   default     = []
 }
+
+#EKS managed node group
 variable "manage_node_group_name" {
   description = "Name of manage node group"
   type        = string
@@ -77,35 +79,84 @@ variable "capacity_type" {
   default     = ""
 }
 
-# security group rule
-variable "scgr_type" {
-  description = "Type of security group rule"
+#NLB
+variable "lb_name" {
+  description = "Name of load balancer"
   type        = string
   default     = ""
 }
-variable "scgr_description" {
-  description = "Description of security group rule"
+variable "lb_type" {
+  description = "Type of load balancer"
   type        = string
   default     = ""
-}
-variable "scgr_form_port" {
-  description = "Access from port of security group rule"
-  type        = number
-  default     = 0
-}
-variable "scgr_to_port" {
-  description = "Access to port of security group rule"
-  type        = number
-  default     = 0
-}
-variable "scgr_protocol" {
-  description = "Protocol of security group rule"
-  type        = string
-  default     = ""
-}
-variable "scgr_cidr_blocks" {
-  description = "cidr blocks of security group rule"
-  type        = list(string)
-  default     = []
 }
 
+#nlb_listener
+variable "http_listeners_port" {
+  description = "http listener port for load balancer"
+  type        = number
+  default     = 0
+}
+variable "http_listeners_protocol" {
+  description = "http listener protocol for load balancer"
+  type        = string
+  default     = ""
+}
+variable "http_listeners_target_group_index" {
+  description = "http listener target group index for load balancer"
+  type        = number
+  default     = 0
+}
+
+#nlb_group
+variable "target_groups_name_prefix" {
+  description = "Name prefix of target groups"
+  type        = string
+  default     = ""
+}
+variable "target_groups_backend_protocol" {
+  description = "backend protocol of target groups"
+  type        = string
+  default     = ""
+}
+variable "target_groups_backend_port" {
+  description = "backend port of target groups"
+  type        = number
+  default     = 0
+}
+variable "target_type" {
+  description = "target type"
+  type        = string
+  default     = ""
+}
+
+#access logs
+variable "access_logs_bucket_name" {
+  description = "Name of bucket"
+  type        = string
+  default     = ""
+}
+variable "access_logs_prefix" {
+  description = "prefix of access logs"
+  type        = string
+  default     = ""
+}
+variable "access_logs_enabled" {
+  description = "prefix of access logs"
+  type        = bool
+  default     = true
+}
+
+
+
+#autoscaling attachment
+variable "autoscaling_group_name" {
+  description = "Name of autoscaling group"
+  type        = string
+  default     = ""
+}
+variable "alb_target_group_arn" {
+  description = "alb target group arn"
+  type        = string
+  default     = ""
+}

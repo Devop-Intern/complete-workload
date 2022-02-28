@@ -1,90 +1,65 @@
-#NLB
-# variable "lb_version" {
-#   description = "Version of network load balancer"
-#   type        = string
-#   default     = ""
-# }
-variable "lb_name" {
-  description = "Name of load balancer"
+#VPC
+variable "vpc_name" {
+  description = "Name of vpc"
   type        = string
   default     = ""
 }
-variable "lb_type" {
-  description = "Type of load balancer"
+variable "vpc_cidr" {
+  description = "cidr"
   type        = string
   default     = ""
 }
-variable "vpc_id" {
-  description = "ID of vpc"
-  type        = string
-  default     = ""
-}
-variable "subnet_ids" {
-  description = "A list of VPC subnet IDs"
-  type        = list(string)
-  default     = []
-}
-variable "http_listeners_port" {
-  description = "http listener port for load balancer"
-  type        = number
-  default     = 0
-}
-variable "http_listeners_protocol" {
-  description = "http listener protocol for load balancer"
-  type        = string
-  default     = ""
-}
-variable "http_listeners_target_group_index" {
-  description = "http listener target group index for load balancer"
-  type        = number
-  default     = 0
-}
-variable "target_groups_name_prefix" {
-  description = "Name prefix of target groups"
-  type        = string
-  default     = ""
-}
-variable "target_groups_backend_protocol" {
-  description = "backend protocol of target groups"
-  type        = string
-  default     = ""
-}
-variable "target_groups_backend_port" {
-  description = "backend port of target groups"
-  type        = number
-  default     = 0
-}
-variable "target_type" {
-  description = "target type"
-  type        = string
-  default     = ""
-}
-
-#access logs
-variable "access_logs_bucket_name" {
-  description = "Name of bucket"
-  type        = string
-  default     = ""
-}
-variable "access_logs_prefix" {
-  description = "prefix of access logs"
-  type        = string
-  default     = ""
-}
-variable "access_logs_enabled" {
-  description = "prefix of access logs"
+variable "vpc_enable_dns_hostnames" {
+  description = "enable_dns_hostnames"
   type        = bool
   default     = true
 }
-
-#autoscaling attachment
-variable "autoscaling_group_name" {
-  description = "Name of autoscaling group"
+variable "vpc_manage_default_route_table" {
+  description = "manage default route table"
+  type        = bool
+  default     = true
+}
+variable "vpc_default_route_table_name" {
+  description = "default route table name"
+  type        = string
+  default     = ""
+}
+variable "vpc_default_route_table_routes_cidr_block" {
+  description = "vpc default route table routes cidr block"
   type        = string
   default     = ""
 }
 
-#security group rules
+#SUBNET
+variable "subnet_name" {
+  description = "Name of subnet"
+  type        = list(string)
+  default     = []
+}
+variable "subnet_cidr_block" {
+  description = "subnet cidr block"
+  type        = list(string)
+  default     = []
+}
+variable "subnet_availability_zone" {
+  description = "subnet availability zone"
+  type        = list(string)
+  default     = []
+}
+variable "subnet_map_public_ip_on_launch" {
+  description = "subnet map public ip on launch"
+  type        = bool
+  default     = false
+}
+
+#internet_gateway
+variable "igw_name" {
+  type = string
+}
+
+
+
+#security group rules1
 variable "security_group_rule_type" {
   description = "Type of security group rule"
   type        = string
@@ -157,6 +132,9 @@ variable "security_group_rule_cidr_blocks2" {
   type        = list(string)
   default     = []
 }
+
+
+
 
 
 

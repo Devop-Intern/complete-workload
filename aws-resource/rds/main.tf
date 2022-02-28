@@ -21,7 +21,7 @@ module "db" {
   iam_database_authentication_enabled = var.rds_iam_database_authentication_enabled
 
   # vpc_security_group_ids = ["sg-030afe75"]
-  vpc_security_group_ids = [module.rds_security_group.security_group_id]
+  vpc_security_group_ids = [var.rds_vpc_security_group_ids]
 
   # Enhanced Monitoring - see example for details on how to create the role
   # by yourself, in case you don't want to create it automatically
@@ -39,7 +39,7 @@ module "db" {
   db_subnet_group_name            = var.db_subnet_group_name
   db_subnet_group_use_name_prefix = var.db_subnet_group_use_name_prefix
   db_subnet_group_description     = var.db_subnet_group_description
-  subnet_ids                      = [for subnet in aws_subnet.rds_subnet : subnet.id]
+  subnet_ids                      = var.subnet_ids
 
   family                  = var.family
   backup_retention_period = var.backup_retention_period
@@ -59,7 +59,7 @@ module "rds_security_group" {
   name            = var.security_group_name
   use_name_prefix = var.security_group_use_name_prefix
   description     = var.security_group_description
-  vpc_id          = var.vpc_id
+  vpc_id          = var.rds_sg_vpc_id
 
   ingress_with_cidr_blocks = [
     {
@@ -72,13 +72,3 @@ module "rds_security_group" {
   ]
 }
 
-resource "aws_subnet" "rds_subnet" {
-  count                   = length(var.subnet_cidr_block)
-  vpc_id                  = var.vpc_id
-  cidr_block              = var.subnet_cidr_block[count.index]
-  availability_zone       = var.subnet_availability_zone[count.index]
-  map_public_ip_on_launch = var.subnet_map_public_ip_on_launch
-  tags = {
-    Name = var.subnet_name[count.index]
-  }
-}

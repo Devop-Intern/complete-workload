@@ -1,5 +1,5 @@
-provider "aws" { # Cloud provider
-  profile = "produser"
+provider "aws" {                # Cloud provider
+  profile = "banjov2"
   region  = "ap-southeast-1"
 }
 

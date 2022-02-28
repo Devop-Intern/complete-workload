@@ -1,8 +1,6 @@
+#EKS
 variable "eks" {
   type = map(any)
-}
-variable "eks_subnet_ids" {
-  type = list(string)
 }
 variable "default_manage_node" {
   type = map(any)
@@ -11,11 +9,37 @@ variable "manage_node_group" {
   type = map(any)
 }
 
-variable "my_lb" {
+
+#VPC
+variable "vpc" {
   type = map(any)
 }
-variable "lb_subnet_ids" {
+
+
+#SUBNET
+variable "subnet_name" {
   type = list(string)
+}
+variable "subnet_cidr_block" {
+  type = list(string)
+}
+variable "subnet_availability_zone" {
+  type = list(string)
+}
+variable "subnet_map_public_ip_on_launch" {
+  type = bool
+}
+
+
+#internet_gateway
+variable "igw_name" {
+  type = string
+}
+
+
+#NLB
+variable "my_lb" {
+  type = map(any)
 }
 variable "http_listeners" {
   type = map(any)
@@ -28,18 +52,8 @@ variable "access_logs" {
 }
 
 
+#RDS
 variable "rds" {
   type = map(any)
 }
-variable "subnet_name" {
-  type = list(string)
-}
-variable "subnet_cidr_block" {
-  type = list(string)
-}
-variable "subnet_availability_zone" {
-  type = list(string)
-}
-variable "subnet_map_public_ip_on_launch" {
-  type = string
-}
+

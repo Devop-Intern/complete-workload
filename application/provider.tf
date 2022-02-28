@@ -12,7 +12,7 @@ terraform {
 }
 
 # provider "aws" {
-#   profile = "produser"
+#   profile = "banjov2"
 #   region  = "ap-southeast-1"
 # }
 

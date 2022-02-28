@@ -55,12 +55,12 @@ variable "rds_iam_database_authentication_enabled" {
   type        = bool
   default     = false
 }
+variable "rds_vpc_security_group_ids" {
+  description = "rds vpc security group ids"
+  type        = string
+  default     = ""
+}
 
-# variable "security_group_ids" {
-#   description = "A list security group id"
-#   type        = string
-#   default     = ""
-# }
 
 variable "rds_monitoring_interval" {
   description = "monitoring interval time"
@@ -97,11 +97,12 @@ variable "db_subnet_group_description" {
   type        = string
   default     = ""
 }
-# variable "subnet_ids" {
-#   description = "ID of subnet"
-#   type        = list(string)
-#   default     = []
-# }
+variable "subnet_ids" {
+  description = "A list of VPC subnet IDs"
+  type        = list(string)
+  default     = []
+}
+
 variable "family" {
   description = "family"
   type        = string
@@ -112,21 +113,7 @@ variable "backup_retention_period" {
   type        = number
   default     = 0
 }
-# variable "performance_insights_enabled" {
-#   description = "performance insights enabled"
-#   type        = bool
-#   default     = true
-# }
-# variable "performance_insights_kms_key_id" {
-#   description = "performance insights kms key id"
-#   type        = string
-#   default     = ""
-# }
-# variable "performance_insights_retention_period" {
-#   description = "performance insights retention period"
-#   type        = number
-#   default     = 0
-# }
+
 variable "skip_final_snapshot" {
   description = " skip final snapshot"
   type        = bool
@@ -175,30 +162,10 @@ variable "security_group_cidr_block" {
   type        = string
   default     = ""
 }
-
-#rds subnet
-variable "subnet_name" {
-  description = "Name of subnet"
-  type        = list(string)
-  default     = []
-}
-variable "vpc_id" {
-  description = "vpc id"
+variable "rds_sg_vpc_id" {
+  description = "rds sg vpc id"
   type        = string
   default     = ""
 }
-variable "subnet_cidr_block" {
-  description = "subnet cidr block"
-  type        = list(string)
-  default     = []
-}
-variable "subnet_availability_zone" {
-  description = "subnet availability zone"
-  type        = list(string)
-  default     = []
-}
-variable "subnet_map_public_ip_on_launch" {
-  description = "vpc id"
-  type        = bool
-  default     = false
-}
+
+

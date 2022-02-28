@@ -2,7 +2,7 @@
 
 ## 1) Apply EKS
 
-**1.1   cd ./main** <br>
+**1.1   cd ./aws-resource** <br>
 **1.2** `terraform init` <br>
 **1.3** `terraform apply -var-file="var.tfvars"`
 
@@ -49,6 +49,14 @@ resource "null_resource" "kubectl" {
 
 ## 4) Apply App
 
-**4.1** cd ./kube-argocd <br>
+**4.1** cd ./application <br>
 **4.2** `terraform init` <br>
-**4.3** `terraform apply`
+**4.3** `terraform apply` <br>
+
+```
+ใน Folder application 
+จะไปเรียก kube-argocd.tf ซึ่งจะทำงาน resource "null_resource" ก่อน 
+แล้วค่อยทำ resource "helm_release" ต่อ เมื่อทำเสร็จก็จะทำ nginx.tf, nodeport.tf และ application.tf พร้อมๆกัน
+```
+
+
