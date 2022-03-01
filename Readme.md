@@ -6,7 +6,7 @@
 **1.2** `terraform init` <br>
 **1.3** `terraform apply -var-file="var.tfvars"`
 
-## 2) แก้ Host ของ application.tf ใน kube-argocd โดยใช้ dns name ของ nlb ใน aws
+## 2) แก้ Host ของ application.tf ใน argocd โดยใช้ dns name ของ nlb ใน aws
 
 ```
 ingress: 
@@ -38,7 +38,7 @@ spec:
   source:
     repoURL: ${gitrepo}
 ```
-**3.2   file: kube-argocd.tf** <br>
+**3.2   file: aws-resource/main.tf** <br>
 **Personal profile/cluster name**
 ```
 resource "null_resource" "kubectl" {
@@ -55,7 +55,7 @@ resource "null_resource" "kubectl" {
 
 ```
 ใน Folder application 
-จะไปเรียก kube-argocd.tf ซึ่งจะทำงาน resource "null_resource" ก่อน 
+จะไปเรียก argocd.tf ซึ่งจะทำงาน resource "null_resource" ก่อน 
 แล้วค่อยทำ resource "helm_release" ต่อ เมื่อทำเสร็จก็จะทำ nginx.tf, nodeport.tf และ application.tf พร้อมๆกัน
 ```
 
