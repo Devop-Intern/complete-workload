@@ -9,7 +9,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: "https://github.com/punthanat/intern_nginx_helm-pgadmin.git"
+    repoURL: "https://github.com/Devop-Intern/helm-template.git"
     path: helm
     targetRevision: HEAD
     helm:
@@ -52,6 +52,20 @@ spec:
             nginx.org/rewrites: "serviceName=pgadmin-svc rewrite=/pgadmin"
             nginx.org/rewrites: "serviceName=echoserver-svc rewrite=/"
             nginx.org/rewrites: "serviceName=helloworld-svc rewrite=/"
+        nodeport:
+          name: nodeport
+          namespace: nginx-ingress
+          type: NodePort
+          app: nginx-ingress-nginx-ingress
+        nginx:
+          name: nginx-ingress
+          namespace1: argocd
+          namespace2: nginx-ingress
+          project: default
+          chart: nginx-ingress
+          repo: https://helm.nginx.com/stable
+          targetrevision: 0.4.1
+          server: https://kubernetes.default.svc
   destination:
     server: "https://kubernetes.default.svc"
     namespace: helm
