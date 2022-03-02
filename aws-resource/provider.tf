@@ -7,32 +7,9 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 3.0"
+      version = "~> 4.0"
     }
   }
-}
-
-# provider "helm" {
-#   kubernetes {
-#     config_path = "~/.kube/config"
-#   }
-# }
-
-# provider "kubernetes" {
-#   config_path = "~/.kube/config"
-# }
-
-# terraform {
-#   required_providers {
-#     aws = {
-#       source  = "hashicorp/aws"
-#       version = "~> 4.0"
-#     }
-#     kubectl = {
-#       source  = "gavinbunney/kubectl"
-#       version = ">= 1.7.0"
-#     }
-#   }
 #   backend "s3" {
 #     bucket = "bucketbkk"
 #     key    = "./terraform.tfstate"
@@ -41,4 +18,4 @@ terraform {
 #     # dynamodb_table = "nopnithi-terraform-state-demo"
 #     profile = "supphakit"
 #   }
-# }
+}

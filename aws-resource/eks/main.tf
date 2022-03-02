@@ -20,7 +20,6 @@ module "eks" {
       min_size     = var.min_size
       max_size     = var.max_size
       desired_size = var.desired_size
-
       instance_types = var.instance_types
       capacity_type  = var.capacity_type
     }
@@ -30,9 +29,8 @@ module "eks" {
 
 module "nlb" {
   source = "terraform-aws-modules/alb/aws"
+  version            = "~> 6.0"
 
-  # version            = var.lb_version
-  # version            = "~> 6.0"
   name               = var.lb_name
   load_balancer_type = var.lb_type
 

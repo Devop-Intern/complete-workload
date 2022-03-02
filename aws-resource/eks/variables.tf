@@ -1,4 +1,4 @@
-#EKS
+# EKS
 variable "cluster_name" {
   description = "Name of Cluster"
   type        = string
@@ -30,7 +30,7 @@ variable "subnet_ids" {
   default     = []
 }
 
-#EKS managed node group default
+# default managed node
 variable "ami_type" {
   description = "Ami type of manage node group"
   type        = string
@@ -47,7 +47,7 @@ variable "default_instance_types" {
   default     = []
 }
 
-#EKS managed node group
+# managed node group
 variable "manage_node_group_name" {
   description = "Name of manage node group"
   type        = string
@@ -79,7 +79,7 @@ variable "capacity_type" {
   default     = ""
 }
 
-#NLB
+# NLB
 variable "lb_name" {
   description = "Name of load balancer"
   type        = string
@@ -91,7 +91,7 @@ variable "lb_type" {
   default     = ""
 }
 
-#nlb_listener
+# nlb_listener
 variable "http_listeners_port" {
   description = "http listener port for load balancer"
   type        = number
@@ -130,7 +130,7 @@ variable "target_type" {
   default     = ""
 }
 
-#access logs
+# access logs
 variable "access_logs_bucket_name" {
   description = "Name of bucket"
   type        = string
@@ -149,7 +149,7 @@ variable "access_logs_enabled" {
 
 
 
-#autoscaling attachment
+# autoscaling attachment
 variable "autoscaling_group_name" {
   description = "Name of autoscaling group"
   type        = string

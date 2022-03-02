@@ -1,18 +1,18 @@
 module "eks" {
   source = "./eks"
 
-  #ESK Cluster
+  # EKS Cluster
   cluster_name    = var.eks.cluster_name
   cluster_version = var.eks.cluster_version
   vpc_id          = module.vpc.vpc_id
   subnet_ids      = module.vpc.subnet_id
 
-  #Default manage node
+  # Default manage node
   ami_type               = var.default_manage_node.ami_type
   disk_size              = var.default_manage_node.disk_size
   default_instance_types = [var.default_manage_node.default_instance_types]
 
-  #Manage node group
+  # Manage node group
   manage_node_group_name = var.manage_node_group.manage_node_group_name
   min_size               = var.manage_node_group.min_size
   max_size               = var.manage_node_group.max_size
@@ -20,8 +20,7 @@ module "eks" {
   instance_types         = [var.manage_node_group.instance_types]
   capacity_type          = var.manage_node_group.capacity_type
 
-  #NLB
-  # lb_version = "~> 6.0"
+  # NLB
   lb_name                           = var.my_lb.lb_name
   lb_type                           = var.my_lb.lb_type
   http_listeners_port               = var.http_listeners.port
@@ -35,7 +34,7 @@ module "eks" {
   # access_logs_prefix                = var.access_logs.prefix 
   # access_logs_enabled               = var.access_logs.enabled 
 
-  #autocaling group
+  # autocaling group
   alb_target_group_arn = module.eks.nlb_target_group_arns
 
 }
@@ -43,7 +42,7 @@ module "eks" {
 module "vpc" {
   source = "./vpc"
 
-  #VPC 
+  # VPC
   vpc_name = var.vpc.vpc_name
   vpc_cidr = var.vpc.vpc_cidr
 
@@ -53,16 +52,16 @@ module "vpc" {
   vpc_default_route_table_name              = var.vpc.vpc_default_route_table_name
   vpc_default_route_table_routes_cidr_block = var.vpc.vpc_default_route_table_routes_cidr_block
 
-  #SUBNET
+  # subnet for vpc
   subnet_name                    = var.subnet_name
   subnet_cidr_block              = var.subnet_cidr_block
   subnet_availability_zone       = var.subnet_availability_zone
   subnet_map_public_ip_on_launch = var.subnet_map_public_ip_on_launch
 
-  #internet_gateway
+  # internet gateway
   igw_name = var.igw_name
 
-  #secutity group rule
+  # secutity group rule ingress
   security_group_rule_type        = "ingress"
   security_group_rule_description = "inbound all port"
   security_group_rule_form_port   = 0
@@ -84,9 +83,8 @@ module "vpc" {
 module "rds" {
   source = "./rds"
 
-  rds_sg_vpc_id = module.vpc.vpc_id
-
-  #RDS
+  # RDS
+  rds_sg_vpc_id              = module.vpc.vpc_id
   rds_identifier             = var.rds.rds_identifier
   rds_engine                 = var.rds.rds_engine
   rds_engine_version         = var.rds.rds_engine_version
@@ -104,11 +102,8 @@ module "rds" {
   db_subnet_group_name        = var.rds.db_subnet_group_name
   db_subnet_group_description = var.rds.db_subnet_group_description
   subnet_ids                  = module.vpc.subnet_id
-
-  family                  = var.rds.family
-  backup_retention_period = var.rds.backup_retention_period
-  # performance_insights_kms_key_id       = "arn:aws:kms:ap-southeast-1:115595541515:key/44cffea8-6f93-403c-9d53-bce9d9616f1c"
-  # performance_insights_retention_period = ""
+  family                      = var.rds.family
+  backup_retention_period     = var.rds.backup_retention_period
 
   #rds security group
   security_group_name             = var.rds.security_group_name
@@ -121,21 +116,11 @@ module "rds" {
 
 }
 
-# resource "helm_release" "argocd-helm" {
-#   name = "argocd-helm"
-
-#   repository       = "https://argoproj.github.io/argo-helm"
-#   chart            = "argo-cd"
-#   create_namespace = true
-#   namespace        = "argocd"
-# }
-
-
-#update-kubeconfig 
-# resource "null_resource" "kubectl" {
-#   depends_on = [module.eks]
-#   provisioner "local-exec" {
-#     command = var.update-kubeconfig
-#   }
-# }
+# update-kubeconfig 
+resource "null_resource" "kubectl" {
+  depends_on = [module.eks]
+  provisioner "local-exec" {
+    command = var.update-kubeconfig
+  }
+}
 

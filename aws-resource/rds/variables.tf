@@ -1,4 +1,4 @@
-#RDS
+# RDS
 variable "rds_identifier" {
   description = "identifier of rds"
   type        = string
@@ -15,6 +15,7 @@ variable "rds_engine_version" {
   default     = ""
 }
 
+# RDS Instance
 variable "rds_instance_class" {
   description = "instace class of rds"
   type        = string
@@ -61,7 +62,7 @@ variable "rds_vpc_security_group_ids" {
   default     = ""
 }
 
-
+# RDS Monitoring
 variable "rds_monitoring_interval" {
   description = "monitoring interval time"
   type        = string
@@ -120,7 +121,7 @@ variable "skip_final_snapshot" {
   default     = true
 }
 
-#rds security group
+# RDS Security roup
 variable "security_group_name" {
   description = "security group name"
   type        = string
@@ -167,5 +168,3 @@ variable "rds_sg_vpc_id" {
   type        = string
   default     = ""
 }
-
-

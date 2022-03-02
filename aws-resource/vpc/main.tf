@@ -13,12 +13,11 @@ module "vpc" {
       cidr_block = var.vpc_default_route_table_routes_cidr_block
       gateway_id = aws_internet_gateway.gw.id
     }
-
   ]
 
 }
 
-#SUBNET
+# subnet for vpc
 resource "aws_subnet" "subnet" {
   count                   = length(var.subnet_cidr_block)
   vpc_id                  = module.vpc.vpc_id
@@ -30,7 +29,7 @@ resource "aws_subnet" "subnet" {
   }
 }
 
-#internet_gateway
+# internet gateway
 resource "aws_internet_gateway" "gw" {
   vpc_id = module.vpc.vpc_id
 
@@ -40,7 +39,7 @@ resource "aws_internet_gateway" "gw" {
 }
 
 
-#security group rules
+# security group rules
 resource "aws_security_group_rule" "access_rule" {
   type              = var.security_group_rule_type
   description       = var.security_group_rule_description
@@ -48,7 +47,7 @@ resource "aws_security_group_rule" "access_rule" {
   to_port           = var.security_group_rule_to_port
   protocol          = var.security_group_rule_protocol
   security_group_id = var.security_group_id
-  cidr_blocks = var.security_group_rule_cidr_blocks
+  cidr_blocks       = var.security_group_rule_cidr_blocks
 }
 
 resource "aws_security_group_rule" "access_rule2" {
@@ -58,5 +57,5 @@ resource "aws_security_group_rule" "access_rule2" {
   to_port           = var.security_group_rule_to_port2
   protocol          = var.security_group_rule_protocol2
   security_group_id = var.security_group_id2
-  cidr_blocks = var.security_group_rule_cidr_blocks2
+  cidr_blocks       = var.security_group_rule_cidr_blocks2
 }

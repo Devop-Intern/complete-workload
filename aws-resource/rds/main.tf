@@ -2,7 +2,7 @@ module "db" {
   source  = "terraform-aws-modules/rds/aws"
   version = "~> 3.0"
 
-  identifier = var.rds_identifier
+  identifier     = var.rds_identifier
 
   engine         = var.rds_engine
   engine_version = var.rds_engine_version
@@ -12,7 +12,6 @@ module "db" {
   max_allocated_storage = var.rds_max_allocated_storage
   storage_encrypted     = true
 
-
   name     = var.rds_name
   username = var.rds_username
   password = var.rds_password
@@ -20,7 +19,6 @@ module "db" {
 
   iam_database_authentication_enabled = var.rds_iam_database_authentication_enabled
 
-  # vpc_security_group_ids = ["sg-030afe75"]
   vpc_security_group_ids = [var.rds_vpc_security_group_ids]
 
   # Enhanced Monitoring - see example for details on how to create the role
@@ -43,10 +41,6 @@ module "db" {
 
   family                  = var.family
   backup_retention_period = var.backup_retention_period
-
-  # performance_insights_enabled = var.performance_insights_enabled
-  # performance_insights_kms_key_id = var.performance_insights_kms_key_id
-  # performance_insights_retention_period = var.performance_insights_retention_period
 
   # DB snapshot is created before the DB instance is deleted, If true is specified, no DBSnapshot is created
   skip_final_snapshot = var.skip_final_snapshot

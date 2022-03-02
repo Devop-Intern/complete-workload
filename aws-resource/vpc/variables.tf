@@ -1,4 +1,4 @@
-#VPC
+# VPC
 variable "vpc_name" {
   description = "Name of vpc"
   type        = string
@@ -30,7 +30,7 @@ variable "vpc_default_route_table_routes_cidr_block" {
   default     = ""
 }
 
-#SUBNET
+# subnet for vpc
 variable "subnet_name" {
   description = "Name of subnet"
   type        = list(string)
@@ -52,14 +52,14 @@ variable "subnet_map_public_ip_on_launch" {
   default     = false
 }
 
-#internet_gateway
+# internet_gateway
 variable "igw_name" {
   type = string
 }
 
 
 
-#security group rules1
+# security group rules ingress
 variable "security_group_rule_type" {
   description = "Type of security group rule"
   type        = string
@@ -96,7 +96,7 @@ variable "security_group_rule_cidr_blocks" {
   default     = []
 }
 
-#security group rules2
+# security group rules egress
 variable "security_group_rule_type2" {
   description = "Type of security group rule"
   type        = string
