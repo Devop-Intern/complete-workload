@@ -22,10 +22,8 @@ module "eks" {
 
   #NLB
   # lb_version = "~> 6.0"
-  lb_name = var.my_lb.lb_name
-  lb_type = var.my_lb.lb_type
-  # vpc_id                            = var.my_lb.vpc_id
-  # subnet_ids                        = var.lb_subnet_ids
+  lb_name                           = var.my_lb.lb_name
+  lb_type                           = var.my_lb.lb_type
   http_listeners_port               = var.http_listeners.port
   http_listeners_protocol           = var.http_listeners.protocol
   http_listeners_target_group_index = var.http_listeners.target_group_index
@@ -38,7 +36,8 @@ module "eks" {
   # access_logs_enabled               = var.access_logs.enabled 
 
   #autocaling group
-  autoscaling_group_name = module.eks.eks_managed_node_groups.banjo_managednode3.node_group_resources[0].autoscaling_groups[0].name
+  # autoscaling_group_name = module.eks.eks_managed_node_groups.banjo_managednode3.node_group_resources[0].autoscaling_groups[0].name
+  autoscaling_group_name = [for k, v in [for k, v in [module.eks.node_group_resources] : v[k].autoscaling_groups] : v[k].name][0]
   alb_target_group_arn   = module.eks.nlb_target_group_arns
 
 }
@@ -71,7 +70,7 @@ module "vpc" {
   security_group_rule_form_port   = 0
   security_group_rule_to_port     = 65535
   security_group_rule_protocol    = "all"
-  security_group_id               = module.eks.eks_managed_node_groups.banjo_managednode3.security_group_id
+  security_group_id               = module.eks.security_group_id_manage_node
   security_group_rule_cidr_blocks = ["0.0.0.0/0"]
 
   #secutity group rule egress
@@ -80,7 +79,7 @@ module "vpc" {
   security_group_rule_form_port2   = 0
   security_group_rule_to_port2     = 65535
   security_group_rule_protocol2    = "all"
-  security_group_id2               = module.eks.eks_managed_node_groups.banjo_managednode3.security_group_id
+  security_group_id2               = module.eks.security_group_id_manage_node
   security_group_rule_cidr_blocks2 = ["0.0.0.0/0"]
 }
 
@@ -102,13 +101,9 @@ module "rds" {
   rds_port                   = var.rds.rds_port
   rds_vpc_security_group_ids = module.rds.security_group_id
 
-  # security_group_ids              = ""
   rds_monitoring_interval  = var.rds.rds_monitoring_interval
   rds_monitoring_role_name = var.rds.rds_monitoring_role_name
-  # rds_create_monitoring_role      = ""
-  # rds_create_db_subnet_group      = ""
   db_subnet_group_name = var.rds.db_subnet_group_name
-  # db_subnet_group_use_name_prefix = ""
   db_subnet_group_description = var.rds.db_subnet_group_description
   subnet_ids                  = module.vpc.subnet_id
 
@@ -137,10 +132,11 @@ module "rds" {
 #   namespace        = "argocd"
 # }
 
-####################################update-kubeconfig##################################
-resource "null_resource" "kubectl" {
-  depends_on = [module.eks]
-  provisioner "local-exec" {
-    command = "aws eks update-kubeconfig --region ap-southeast-1 --name new-cluster-3 --profile produser"
-  }
-}
+
+#update-kubeconfig 
+# resource "null_resource" "kubectl" {
+#   depends_on = [module.eks]
+#   provisioner "local-exec" {
+#     command = var.update-kubeconfig
+#   }
+# }

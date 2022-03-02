@@ -1,10 +1,7 @@
-#######################  eks  ######################################################################
+#EKS  
 eks = {
   cluster_name    = "banjo_clus3_var"
   cluster_version = "1.21"
-  # cluster_endpoint_private_access = true
-  # cluster_endpoint_public_access  = true
-
 }
 default_manage_node = {
   ami_type               = "AL2_x86_64"
@@ -21,7 +18,7 @@ manage_node_group = {
 }
 
 
-#######################  vpc  ######################################################################
+#VPC
 vpc = {
   vpc_name                                  = "vpc-banjo"
   vpc_cidr                                  = "172.31.0.0/16"
@@ -32,7 +29,7 @@ vpc = {
 }
 
 
-#######################  subnet  ######################################################################
+#SUBNET 
 subnet_name                    = ["banjoTestSup1", "banjoTestSup2"]
 subnet_cidr_block              = ["172.31.48.0/20", "172.31.80.0/20"]
 subnet_availability_zone       = ["ap-southeast-1a", "ap-southeast-1b"]
@@ -40,12 +37,12 @@ subnet_map_public_ip_on_launch = true
 
 
 
-#######################  internet_gateway  ######################################################################
+#internet_gateway
 igw_name = "gw-banjo"
 
 
 
-#######################  nlb  ######################################################################
+#NLB 
 my_lb = {
   lb_name = "my-nlb-banjo"
   lb_type = "network"
@@ -70,23 +67,21 @@ access_logs = {
   enabled     = true
 }
 
-#######################  RDS  ######################################################################
+
+#RDS
 rds = {
-  rds_identifier            = "pgbanjogg"
-  rds_engine                = "postgres"
-  rds_engine_version        = "14.1"
-  rds_instance_class        = "db.t4g.small"
-  rds_allocated_storage     = 20
-  rds_max_allocated_storage = 100
-  rds_name                  = "pgbanjogg"
-  rds_username              = "postgres"
-  rds_password              = "postgres"
-  rds_port                  = "5432"
-  # security_group_ids              = ""
-  rds_monitoring_interval  = "60"
-  rds_monitoring_role_name = "RDSMonitoringBanjoRole"
-  # rds_create_monitoring_role      = ""
-  # rds_create_db_subnet_group      = ""
+  rds_identifier                  = "pgbanjogg"
+  rds_engine                      = "postgres"
+  rds_engine_version              = "14.1"
+  rds_instance_class              = "db.t4g.small"
+  rds_allocated_storage           = 20
+  rds_max_allocated_storage       = 100
+  rds_name                        = "pgbanjogg"
+  rds_username                    = "postgres"
+  rds_password                    = "postgres"
+  rds_port                        = "5432"
+  rds_monitoring_interval         = "60"
+  rds_monitoring_role_name        = "RDSMonitoringBanjoRole"
   db_subnet_group_name            = "banjo-subgroup-test"
   db_subnet_group_use_name_prefix = false
   db_subnet_group_description     = "testnajaaa"
@@ -112,5 +107,12 @@ rds = {
   security_group_cidr_description = "enable all traffic"
   security_group_cidr_block       = "0.0.0.0/0"
 }
+
+#update-kubeconfig
+update-kubeconfig = "aws eks update-kubeconfig --region ap-southeast-1 --name banjo_clus3_var --profile banjov2"
+
+#provider-aws
+profile = "banjov2"
+region  = "ap-southeast-1"
 
 

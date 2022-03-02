@@ -1,6 +1,6 @@
-provider "aws" {                # Cloud provider
-  profile = "banjov2"
-  region  = "ap-southeast-1"
+provider "aws" {                     # Cloud provider
+  profile = var.profile
+  region  = var.region
 }
 
 terraform {
@@ -11,11 +11,6 @@ terraform {
     }
   }
 }
-
-# provider "aws" {
-#   profile = "supphakit"
-#   region  = "ap-southeast-1"
-# }
 
 # provider "helm" {
 #   kubernetes {
