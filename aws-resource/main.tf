@@ -36,9 +36,7 @@ module "eks" {
   # access_logs_enabled               = var.access_logs.enabled 
 
   #autocaling group
-  # autoscaling_group_name = module.eks.eks_managed_node_groups.banjo_managednode3.node_group_resources[0].autoscaling_groups[0].name
-  autoscaling_group_name = [for k, v in [for k, v in [module.eks.node_group_resources] : v[k].autoscaling_groups] : v[k].name][0]
-  alb_target_group_arn   = module.eks.nlb_target_group_arns
+  alb_target_group_arn = module.eks.nlb_target_group_arns
 
 }
 
@@ -101,9 +99,9 @@ module "rds" {
   rds_port                   = var.rds.rds_port
   rds_vpc_security_group_ids = module.rds.security_group_id
 
-  rds_monitoring_interval  = var.rds.rds_monitoring_interval
-  rds_monitoring_role_name = var.rds.rds_monitoring_role_name
-  db_subnet_group_name = var.rds.db_subnet_group_name
+  rds_monitoring_interval     = var.rds.rds_monitoring_interval
+  rds_monitoring_role_name    = var.rds.rds_monitoring_role_name
+  db_subnet_group_name        = var.rds.db_subnet_group_name
   db_subnet_group_description = var.rds.db_subnet_group_description
   subnet_ids                  = module.vpc.subnet_id
 
@@ -140,3 +138,4 @@ module "rds" {
 #     command = var.update-kubeconfig
 #   }
 # }
+

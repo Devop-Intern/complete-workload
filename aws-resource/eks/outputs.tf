@@ -2,9 +2,6 @@
 output "eks_managed_node_groups" {
   value = module.eks.eks_managed_node_groups
 }
-output "node_group_resources" {
-  value = lookup("${lookup(module.eks.eks_managed_node_groups, var.manage_node_group_name)}", "node_group_resources")
-}
 output "security_group_id_manage_node" {
   value = lookup("${lookup(module.eks.eks_managed_node_groups, var.manage_node_group_name)}", "security_group_id")
 }
