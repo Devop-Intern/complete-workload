@@ -56,6 +56,13 @@ spec:
           name: nodeport
           namespace: nginx-ingress
           type: NodePort
+          port1: 80
+          port2: 443
+          tg1: 80
+          tg2: 443
+          protocal: TCP
+          http: http
+          https: https
           app: nginx-ingress-nginx-ingress
         nginx:
           name: nginx-ingress
