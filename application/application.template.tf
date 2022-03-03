@@ -62,6 +62,7 @@
 #           tg2: 443
 #           protocal: TCP
 #           http: http
+#           nodeport: 32593
 #           https: https
 #           app: nginx-ingress-nginx-ingress
 #         nginx:
