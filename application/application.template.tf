@@ -56,10 +56,10 @@
 #           name: ...
 #           namespace: nginx-ingress
 #           type: NodePort
-#           port1: 80
-#           port2: 443
-#           tg1: 80
-#           tg2: 443
+#           porthttp: 80
+#           porthttps: 443
+#           tghttp: 80
+#           tghttps: 443
 #           protocal: TCP
 #           http: http
 #           nodeport: 32593
@@ -67,8 +67,8 @@
 #           app: nginx-ingress-nginx-ingress
 #         nginx:
 #           name: nginx-ingress
-#           namespace1: argocd
-#           namespace2: nginx-ingress
+#           namespaceapp: argocd
+#           namespacedest: nginx-ingress
 #           project: default
 #           chart: nginx-ingress
 #           repo: https://helm.nginx.com/stable
