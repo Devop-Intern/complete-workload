@@ -4,40 +4,17 @@ module "vpc" {
   name = var.vpc_name
   cidr = var.vpc_cidr
 
-  enable_dns_hostnames = var.vpc_enable_dns_hostnames
-
-  manage_default_route_table = var.vpc_manage_default_route_table
-  default_route_table_name   = var.vpc_default_route_table_name
-  default_route_table_routes = [
-    {
-      cidr_block = var.vpc_default_route_table_routes_cidr_block
-      gateway_id = aws_internet_gateway.gw.id
-    }
-  ]
-
+  enable_dns_hostnames         = var.vpc_enable_dns_hostnames
+  enable_nat_gateway           = var.vpc_enable_nat_gateway
+  single_nat_gateway           = var.vpc_single_nat_gateway
+  one_nat_gateway_per_az       = var.vpc_one_nat_gateway_per_az
+  azs                          = var.vpc_azs
+  private_subnets              = var.vpc_private_subnets
+  public_subnets               = var.vpc_public_subnets
+  map_public_ip_on_launch      = var.subnet_map_public_ip_on_launch
+  create_database_subnet_group = var.vpc_create_database_subnet_group
+  database_subnets             = var.vpc_database_subnets
 }
-
-# subnet for vpc
-resource "aws_subnet" "subnet" {
-  count                   = length(var.subnet_cidr_block)
-  vpc_id                  = module.vpc.vpc_id
-  cidr_block              = var.subnet_cidr_block[count.index]
-  availability_zone       = var.subnet_availability_zone[count.index]
-  map_public_ip_on_launch = var.subnet_map_public_ip_on_launch
-  tags = {
-    Name = var.subnet_name[count.index]
-  }
-}
-
-# internet gateway
-resource "aws_internet_gateway" "gw" {
-  vpc_id = module.vpc.vpc_id
-
-  tags = {
-    Name = var.igw_name
-  }
-}
-
 
 # security group rules
 resource "aws_security_group_rule" "access_rule" {
