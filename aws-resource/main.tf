@@ -5,7 +5,7 @@ module "eks" {
   cluster_name    = var.eks.cluster_name
   cluster_version = var.eks.cluster_version
   vpc_id          = module.vpc.vpc_id
-  subnet_ids      = module.vpc.subnet_id
+  subnet_ids      = module.vpc.private_subnets
 
   # Default manage node
   ami_type               = var.default_manage_node.ami_type
@@ -21,6 +21,8 @@ module "eks" {
   capacity_type          = var.manage_node_group.capacity_type
 
   # NLB
+  lb_vpc_id                         = module.vpc.vpc_id
+  lb_subnets                        = module.vpc.public_subnets
   lb_name                           = var.my_lb.lb_name
   lb_type                           = var.my_lb.lb_type
   http_listeners_port               = var.http_listeners.port
@@ -46,20 +48,17 @@ module "vpc" {
   vpc_name = var.vpc.vpc_name
   vpc_cidr = var.vpc.vpc_cidr
 
-  vpc_enable_dns_hostnames = var.vpc.vpc_enable_dns_hostnames
+  vpc_enable_dns_hostnames   = var.vpc.vpc_enable_dns_hostnames
+  vpc_enable_nat_gateway     = var.vpc.vpc_enable_nat_gateway
+  vpc_single_nat_gateway     = var.vpc.vpc_single_nat_gateway
+  vpc_one_nat_gateway_per_az = var.vpc.vpc_one_nat_gateway_per_az
 
-  vpc_manage_default_route_table            = var.vpc.vpc_manage_default_route_table
-  vpc_default_route_table_name              = var.vpc.vpc_default_route_table_name
-  vpc_default_route_table_routes_cidr_block = var.vpc.vpc_default_route_table_routes_cidr_block
-
-  # subnet for vpc
-  subnet_name                    = var.subnet_name
-  subnet_cidr_block              = var.subnet_cidr_block
-  subnet_availability_zone       = var.subnet_availability_zone
-  subnet_map_public_ip_on_launch = var.subnet_map_public_ip_on_launch
-
-  # internet gateway
-  igw_name = var.igw_name
+  vpc_azs                          = var.vpc_azs
+  vpc_private_subnets              = var.vpc_private_subnets
+  vpc_public_subnets               = var.vpc_public_subnets
+  subnet_map_public_ip_on_launch   = var.vpc.subnet_map_public_ip_on_launch
+  vpc_create_database_subnet_group = var.vpc.vpc_create_database_subnet_group
+  vpc_database_subnets             = var.vpc_database_subnets
 
   # secutity group rule ingress
   security_group_rule_type        = "ingress"
@@ -101,7 +100,7 @@ module "rds" {
   rds_monitoring_role_name    = var.rds.rds_monitoring_role_name
   db_subnet_group_name        = var.rds.db_subnet_group_name
   db_subnet_group_description = var.rds.db_subnet_group_description
-  subnet_ids                  = module.vpc.subnet_id
+  subnet_ids                  = module.vpc.database_subnets
   family                      = var.rds.family
   backup_retention_period     = var.rds.backup_retention_period
 
@@ -123,4 +122,3 @@ resource "null_resource" "kubectl" {
     command = var.update-kubeconfig
   }
 }
-

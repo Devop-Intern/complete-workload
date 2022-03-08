@@ -13,10 +13,3 @@ output "lb_dns_name" {
 output "nlb_target_group_arns" {
   value = module.nlb.target_group_arns[0]
 }
-
-
-
-
-
-
-

@@ -14,25 +14,23 @@ variable "vpc" {
   type = map(any)
 }
 
-# subnet
-variable "subnet_name" {
+# VPC-azs-subnet
+variable "vpc_azs" {
   type = list(string)
 }
-variable "subnet_cidr_block" {
+variable "vpc_private_subnets" {
   type = list(string)
 }
-variable "subnet_availability_zone" {
+variable "vpc_public_subnets" {
   type = list(string)
 }
-variable "subnet_map_public_ip_on_launch" {
-  type = bool
+
+# VPC-database-subnet
+variable "vpc_database_subnets" {
+  type = list(string)
 }
 
 
-# internet_gateway
-variable "igw_name" {
-  type = string
-}
 
 
 # NLB
@@ -69,4 +67,3 @@ variable "profile" {
 variable "region" {
   type = string
 }
-
