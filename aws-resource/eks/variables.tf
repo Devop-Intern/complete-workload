@@ -80,6 +80,16 @@ variable "capacity_type" {
 }
 
 # NLB
+variable "lb_vpc_id" {
+  description = "ID of vpc"
+  type        = string
+  default     = ""
+}
+variable "lb_subnets" {
+  description = "A list of VPC subnet IDs"
+  type        = list(string)
+  default     = []
+}
 variable "lb_name" {
   description = "Name of load balancer"
   type        = string

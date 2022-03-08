@@ -2,7 +2,7 @@ module "db" {
   source  = "terraform-aws-modules/rds/aws"
   version = "~> 3.0"
 
-  identifier     = var.rds_identifier
+  identifier = var.rds_identifier
 
   engine         = var.rds_engine
   engine_version = var.rds_engine_version
@@ -65,4 +65,3 @@ module "rds_security_group" {
     }
   ]
 }
-
