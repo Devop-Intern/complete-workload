@@ -13,21 +13,17 @@
 # vpc = {
 #   vpc_name                                  = "..."
 #   vpc_cidr                                  = "..."
-#   vpc_enable_dns_hostnames                  = true
-#   vpc_manage_default_route_table            = true
-#   vpc_default_route_table_name              = "..."
-#   vpc_default_route_table_routes_cidr_block = "0.0.0.0/0"
+#   vpc_enable_dns_hostnames         = true
+#   vpc_enable_nat_gateway           = true
+#   vpc_single_nat_gateway           = true
+#   vpc_one_nat_gateway_per_az       = false
+#   subnet_map_public_ip_on_launch   = false
+#   vpc_create_database_subnet_group = false
 # }
-
-# # subnet
-# subnet_name                    = ["..."]
-# subnet_cidr_block              = ["..."]
-# subnet_availability_zone       = ["..."]
-# subnet_map_public_ip_on_launch = true
-
-# # internet_gateway 
-# igw_name = "..."
-
+# vpc_azs              = ["..."]
+# vpc_private_subnets  = ["..."]
+# vpc_public_subnets   = ["..."]
+# vpc_database_subnets = ["..."]
 
 # ################################################################################
 # # Elastic Cloud Kubernetes [EKS]
