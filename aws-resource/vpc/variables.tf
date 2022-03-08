@@ -130,9 +130,3 @@ variable "security_group_rule_cidr_blocks2" {
   type        = list(string)
   default     = []
 }
-
-
-
-
-
-
