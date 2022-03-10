@@ -17,18 +17,18 @@ output "database_subnets" {
   value = module.vpc.database_subnets
 }
 
-# output "default_route_table_id" {
-#   value = module.vpc.default_route_table_id
-# }
+output "default_route_table_id" {
+  value = module.vpc.default_route_table_id
+}
 
-# output "private_route_table_ids" {
-#   value = module.vpc.private_route_table_ids
-# }
-# output "private_nat_gateway_route_ids" {
-#   value = module.vpc.private_nat_gateway_route_ids
-# }
-# output "igw_id" {
-#   value = module.vpc.igw_id
-# }
+output "private_route_table_ids" {
+  value = module.vpc.private_route_table_ids
+}
+output "private_nat_gateway_route_ids" {
+  value = module.vpc.private_nat_gateway_route_ids
+}
+output "igw_id" {
+  value = module.vpc.igw_id
+}
 
 
