@@ -19,11 +19,13 @@
 #   vpc_one_nat_gateway_per_az       = false
 #   subnet_map_public_ip_on_launch   = false
 #   vpc_create_database_subnet_group = false
-# }
+# vpc list = {
 # vpc_azs              = ["..."]
 # vpc_private_subnets  = ["..."]
 # vpc_public_subnets   = ["..."]
 # vpc_database_subnets = ["..."]
+# }
+# }
 
 # ################################################################################
 # # Elastic Cloud Kubernetes [EKS]
@@ -94,7 +96,7 @@
 #   rds_monitoring_role_name        = "..."
 #   db_subnet_group_name            = "..."
 #   db_subnet_group_use_name_prefix = false
-#   db_subnet_group_description     = "subnet for rds database service"
+#   db_subnet_group_description     = "..."
 #   family                          = "postgres14"
 #   backup_retention_period         = 7
 #   publicly_accessible             = false
@@ -104,6 +106,7 @@
 #   skip_final_snapshot             = true
 
 #   # rds security group
+#   rds_security_group = {
 #   security_group_name             = "..."
 #   security_group_description      = "security group for rds service"
 #   security_group_cidr_from_port   = "0"
@@ -111,6 +114,7 @@
 #   security_group_cidr_protocol    = "all"
 #   security_group_cidr_description = "enable all traffic"
 #   security_group_cidr_block       = "0.0.0.0/0"
+# }
 # }
 
 
