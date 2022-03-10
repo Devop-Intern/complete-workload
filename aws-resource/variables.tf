@@ -1,51 +1,24 @@
 # EKS
 variable "eks" {
-  type = map(any)
+  type = object({
+    cluster_name        = string
+    cluster_version     = string
+    default_manage_node = map(string)
+    manage_node_group   = map(string)
+  })
 }
-variable "default_manage_node" {
-  type = map(any)
-}
-variable "manage_node_group" {
-  type = map(any)
-}
-
-# VPC
-variable "vpc" {
-  type = map(any)
-}
-
-# VPC-azs-subnet
-variable "vpc_azs" {
-  type = list(string)
-}
-variable "vpc_private_subnets" {
-  type = list(string)
-}
-variable "vpc_public_subnets" {
-  type = list(string)
-}
-
-# VPC-database-subnet
-variable "vpc_database_subnets" {
-  type = list(string)
-}
-
-
-
 
 # NLB
-variable "my_lb" {
-  type = map(any)
+variable "nlb" {
+  type = object({
+    lb_name = string
+    lb_type = string
+    http_listeners = map(string)
+    target_groups  = map(string)
+  })
 }
-variable "http_listeners" {
-  type = map(any)
-}
-variable "target_groups" {
-  type = map(any)
-}
-# variable "access_logs" {
-#   type = map(any)
-# }
+    # access_logs    = map(string)
+
 
 
 # RDS
