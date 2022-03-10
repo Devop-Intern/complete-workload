@@ -33,15 +33,12 @@
 # eks = {
 #   cluster_name    = "..."
 #   cluster_version = "1.21"
-# }
-
 # # default manage node 
 # default_manage_node = {
 #   ami_type               = "AL2_x86_64"
 #   disk_size              = 20
 #   default_instance_types = "t3.medium"
 # }
-
 # # manage node group  
 # manage_node_group = {
 #   manage_node_group_name = "..."
@@ -51,37 +48,36 @@
 #   instance_types         = "t3.medium"
 #   capacity_type          = "ON_DEMAND"
 # }
+# }
 
 # # Network Load balancer [NLB] 
 # my_lb = {
 #   lb_name = "..."
 #   lb_type = "network"
-# }
-
 # http_listeners = {
 #   port               = 80
 #   protocol           = "TCP"
 #   target_group_index = 0
 # }
-
 # target_groups = {
 #   name_prefix      = "..."
 #   backend_protocol = "TCP"
 #   backend_port     = 30080
 #   target_type      = "instance"
 # }
-
 # # Access Logs [S3]
 # # access_logs = {
 # #   bucket_name = "..."
 # #   prefix      = "logs"
 # #   enabled     = true
 # # }
+#}
 
 # ################################################################################
 # # Relational Database Service [RDS]
 # ################################################################################
 # rds = {
+# app = {
 #   rds_identifier                  = "..."
 #   rds_engine                      = "postgres"
 #   rds_engine_version              = "14.1"
@@ -104,7 +100,7 @@
 #   deletion_protection             = false
 #   delete_automated_backups        = true
 #   skip_final_snapshot             = true
-
+# }
 #   # rds security group
 #   rds_security_group = {
 #   security_group_name             = "..."
