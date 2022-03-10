@@ -3,8 +3,8 @@ variable "eks" {
   type = object({
     cluster_name        = string
     cluster_version     = string
-    default_manage_node = map(string)
-    manage_node_group   = map(string)
+    default_manage_node = map(any)
+    manage_node_group   = map(any)
   })
 }
 
@@ -13,8 +13,8 @@ variable "nlb" {
   type = object({
     lb_name        = string
     lb_type        = string
-    http_listeners = map(string)
-    target_groups  = map(string)
+    http_listeners = map(any)
+    target_groups  = map(any)
   })
 }
 # access_logs    = map(string)
@@ -33,19 +33,6 @@ variable "vpc" {
     vpc_list                         = map(list(string))
   })
 }
-
-# NLB
-variable "my_lb" {
-  type = map(any)
-}
-variable "http_listeners" {
-  type = map(any)
-}
-variable "target_groups" {
-  type = map(any)
-}
-
-
 
 # RDS
 variable "rds" {
