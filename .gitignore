@@ -42,3 +42,4 @@ terraform.rc
 
 *application.tf
 .terraform.lock.hcl
+.DS_Store
