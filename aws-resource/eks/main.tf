@@ -78,3 +78,5 @@ resource "aws_autoscaling_attachment" "asg_attachment_bar" {
   autoscaling_group_name = each.value.node_group_resources[0].autoscaling_groups[0].name
   alb_target_group_arn   = var.alb_target_group_arn
 }
+
+
