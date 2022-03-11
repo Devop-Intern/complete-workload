@@ -24,12 +24,6 @@ variable "vpc" {
   type = object({
     vpc_name                         = string
     vpc_cidr                         = string
-    vpc_enable_dns_hostnames         = bool
-    vpc_enable_nat_gateway           = bool
-    vpc_single_nat_gateway           = bool
-    vpc_one_nat_gateway_per_az       = bool
-    subnet_map_public_ip_on_launch   = bool
-    vpc_create_database_subnet_group = bool
     vpc_list                         = map(list(string))
   })
 }

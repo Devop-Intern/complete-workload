@@ -48,13 +48,6 @@ module "vpc" {
   vpc_name = var.vpc.vpc_name
   vpc_cidr = var.vpc.vpc_cidr
 
-  vpc_enable_dns_hostnames   = var.vpc.vpc_enable_dns_hostnames
-  vpc_enable_nat_gateway     = var.vpc.vpc_enable_nat_gateway
-  vpc_single_nat_gateway     = var.vpc.vpc_single_nat_gateway
-  vpc_one_nat_gateway_per_az = var.vpc.vpc_one_nat_gateway_per_az
-
-  subnet_map_public_ip_on_launch   = var.vpc.subnet_map_public_ip_on_launch
-  vpc_create_database_subnet_group = var.vpc.vpc_create_database_subnet_group
   vpc_azs                          = var.vpc.vpc_list.vpc_azs
   vpc_private_subnets              = var.vpc.vpc_list.vpc_private_subnets
   vpc_public_subnets               = var.vpc.vpc_list.vpc_public_subnets
