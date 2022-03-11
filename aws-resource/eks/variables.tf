@@ -4,6 +4,10 @@ variable "cluster_name" {
   type        = string
   default     = ""
 }
+variable "cluster_name_suffix" {
+  type    = string
+  default = "cluster"
+}
 variable "cluster_version" {
   description = "Version of cluster"
   type        = string
@@ -34,17 +38,17 @@ variable "subnet_ids" {
 variable "ami_type" {
   description = "Ami type of manage node group"
   type        = string
-  default     = ""
+  default     = "AL2_x86_64"
 }
 variable "disk_size" {
   description = "Size of manage node disk"
   type        = number
-  default     = 0
+  default     = 50
 }
 variable "default_instance_types" {
   description = "A List of default instance type "
   type        = list(string)
-  default     = []
+  default     = ["t3.medium"]
 }
 
 # managed node group
@@ -53,15 +57,20 @@ variable "manage_node_group_name" {
   type        = string
   default     = ""
 }
+variable "manage_node_group_name_suffix" {
+  description = "Name suffix of manage node group"
+  type        = string
+  default     = "node-group"
+}
 variable "min_size" {
   description = "minimum number of manage node "
   type        = number
-  default     = 0
+  default     = 1
 }
 variable "max_size" {
   description = "maximum number of manage node "
   type        = number
-  default     = 0
+  default     = 10
 }
 variable "desired_size" {
   description = "desired number of manage node "
@@ -76,7 +85,7 @@ variable "instance_types" {
 variable "capacity_type" {
   description = "capacity type of manage node group"
   type        = string
-  default     = ""
+  default     = "ON_DEMAND"
 }
 
 # NLB
@@ -95,22 +104,26 @@ variable "lb_name" {
   type        = string
   default     = ""
 }
+variable "lb_name_prefix"{
+  type        = string
+  default     = "nlb-"
+}
 variable "lb_type" {
   description = "Type of load balancer"
   type        = string
-  default     = ""
+  default     = "network"
 }
 
 # nlb_listener
 variable "http_listeners_port" {
   description = "http listener port for load balancer"
   type        = number
-  default     = 0
+  default     = 80
 }
 variable "http_listeners_protocol" {
   description = "http listener protocol for load balancer"
   type        = string
-  default     = ""
+  default     = "TCP"
 }
 variable "http_listeners_target_group_index" {
   description = "http listener target group index for load balancer"
@@ -118,11 +131,11 @@ variable "http_listeners_target_group_index" {
   default     = 0
 }
 
-#nlb_group
+#nlb_target_group
 variable "target_groups_name_prefix" {
   description = "Name prefix of target groups"
   type        = string
-  default     = ""
+  default     = "tg-"
 }
 variable "target_groups_backend_protocol" {
   description = "backend protocol of target groups"

@@ -1,7 +1,7 @@
 module "eks" {
   source = "terraform-aws-modules/eks/aws"
 
-  cluster_name                    = var.cluster_name
+  cluster_name                    = "${var.cluster_name}-${var.cluster_name_suffix}"
   cluster_version                 = var.cluster_version
   cluster_endpoint_private_access = var.cluster_endpoint_private_access
   cluster_endpoint_public_access  = var.cluster_endpoint_public_access
@@ -16,7 +16,7 @@ module "eks" {
   }
 
   eks_managed_node_groups = {
-    (var.manage_node_group_name) = {
+    ("${var.manage_node_group_name}-${var.manage_node_group_name_suffix}") = {
       min_size       = var.min_size
       max_size       = var.max_size
       desired_size   = var.desired_size
