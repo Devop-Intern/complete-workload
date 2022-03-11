@@ -13,12 +13,6 @@
 # vpc = {
 #   vpc_name                                  = "..."
 #   vpc_cidr                                  = "..."
-#   vpc_enable_dns_hostnames         = true
-#   vpc_enable_nat_gateway           = true
-#   vpc_single_nat_gateway           = true
-#   vpc_one_nat_gateway_per_az       = false
-#   subnet_map_public_ip_on_launch   = false
-#   vpc_create_database_subnet_group = false
 # vpc list = {
 # vpc_azs              = ["..."]
 # vpc_private_subnets  = ["..."]

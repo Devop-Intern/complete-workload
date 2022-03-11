@@ -33,7 +33,7 @@ module "nlb" {
 
   vpc_id             = var.lb_vpc_id
   subnets            = var.lb_subnets
-  name               = var.lb_name
+  name               = "${var.lb_name_prefix}-${var.lb_name}"
   load_balancer_type = var.lb_type
 
 
@@ -55,7 +55,7 @@ module "nlb" {
 
   target_groups = [
     {
-      name_prefix      = var.target_groups_name_prefix
+      name             = "${var.target_groups_name_prefix}-${var.manage_node_group_name}"
       backend_protocol = var.target_groups_backend_protocol
       backend_port     = var.target_groups_backend_port
       target_type      = var.target_type

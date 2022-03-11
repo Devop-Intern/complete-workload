@@ -106,7 +106,7 @@ variable "lb_name" {
 }
 variable "lb_name_prefix"{
   type        = string
-  default     = "nlb-"
+  default     = "nlb"
 }
 variable "lb_type" {
   description = "Type of load balancer"
@@ -135,7 +135,7 @@ variable "http_listeners_target_group_index" {
 variable "target_groups_name_prefix" {
   description = "Name prefix of target groups"
   type        = string
-  default     = "tg-"
+  default     = "tg"
 }
 variable "target_groups_backend_protocol" {
   description = "backend protocol of target groups"

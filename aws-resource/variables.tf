@@ -21,3 +21,28 @@ variable "nlb" {
   })
 }
 # access_logs    = map(string)
+
+variable "vpc" {
+  type = object({
+    vpc_cidr                         = string
+    vpc_list                         = map(list(string))
+  })
+}
+
+# RDS
+variable "rds" {
+  type = map(map(string))
+}
+
+# update-kubeconfig
+variable "update-kubeconfig" {
+  type = string
+}
+
+# provider-aws
+variable "profile" {
+  type = string
+}
+variable "region" {
+  type = string
+}
