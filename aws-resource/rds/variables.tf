@@ -51,47 +51,16 @@ variable "rds_port" {
   type        = string
   default     = ""
 }
-variable "rds_iam_database_authentication_enabled" {
-  description = "database authentication enabled"
-  type        = bool
-  default     = false
-}
+
 variable "rds_vpc_security_group_ids" {
   description = "rds vpc security group ids"
   type        = string
   default     = ""
 }
-
-# RDS Monitoring
-variable "rds_monitoring_interval" {
-  description = "monitoring interval time"
-  type        = string
-  default     = ""
-}
-variable "rds_monitoring_role_name" {
-  description = "monitoring role name"
-  type        = string
-  default     = ""
-}
-variable "rds_create_monitoring_role" {
-  description = "engine version of rds"
-  type        = bool
-  default     = true
-}
-variable "rds_create_db_subnet_group" {
-  description = "subnet group create"
-  type        = bool
-  default     = true
-}
 variable "db_subnet_group_name" {
   description = "subnet group name"
   type        = string
   default     = ""
-}
-variable "db_subnet_group_use_name_prefix" {
-  description = "subnet group use prefix name"
-  type        = bool
-  default     = false
 }
 variable "db_subnet_group_description" {
   description = "subnet group description"
@@ -104,22 +73,6 @@ variable "subnet_ids" {
   default     = []
 }
 
-variable "family" {
-  description = "family"
-  type        = string
-  default     = ""
-}
-variable "backup_retention_period" {
-  description = "backup retention period"
-  type        = number
-  default     = 0
-}
-
-variable "skip_final_snapshot" {
-  description = " skip final snapshot"
-  type        = bool
-  default     = true
-}
 
 # RDS Security roup
 variable "security_group_name" {

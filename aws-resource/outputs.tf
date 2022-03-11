@@ -34,3 +34,4 @@ output "database_subnets" {
 output "security_group_id" {
   value = module.rds.security_group_id
 }
+
