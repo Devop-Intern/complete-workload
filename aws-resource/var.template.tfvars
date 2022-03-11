@@ -5,7 +5,7 @@
 # profile = "..."
 # region  = "ap-southeast-1"
 # # update-kubeconfig
-# update-kubeconfig = "aws eks update-kubeconfig --region ap-southeast-1 --name ... --profile ..."
+# update-kubeconfig = "aws eks update-kubeconfig --region ap-southeast-1 --name ...-cluster --profile ..."
 
 # resource_name = "..."
 # ################################################################################
@@ -34,10 +34,12 @@
 # }
 
 # # Network Load balancer [NLB] 
+    # nlb = {
 # target_groups = {
 #   backend_protocol = "TCP"
 #   backend_port     = 32593
 #   target_type      = "instance"
+# }
 # }
 # # Access Logs [S3]
 # # access_logs = {
@@ -45,7 +47,6 @@
 # #   prefix      = "logs"
 # #   enabled     = true
 # # }
-# }
 
 # ################################################################################
 # # Relational Database Service [RDS]
