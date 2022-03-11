@@ -1,7 +1,7 @@
 module "eks" {
   source = "terraform-aws-modules/eks/aws"
 
-  cluster_name                    = var.cluster_name
+  cluster_name                    = "${var.cluster_name}-${var.cluster_name_suffix}"
   cluster_version                 = var.cluster_version
   cluster_endpoint_private_access = var.cluster_endpoint_private_access
   cluster_endpoint_public_access  = var.cluster_endpoint_public_access
@@ -16,7 +16,7 @@ module "eks" {
   }
 
   eks_managed_node_groups = {
-    (var.manage_node_group_name) = {
+    ("${var.manage_node_group_name}-${var.manage_node_group_name_suffix}") = {
       min_size       = var.min_size
       max_size       = var.max_size
       desired_size   = var.desired_size
@@ -33,7 +33,7 @@ module "nlb" {
 
   vpc_id             = var.lb_vpc_id
   subnets            = var.lb_subnets
-  name               = var.lb_name
+  name               = "${var.lb_name_prefix}-${var.lb_name}"
   load_balancer_type = var.lb_type
 
 
@@ -55,7 +55,7 @@ module "nlb" {
 
   target_groups = [
     {
-      name_prefix      = var.target_groups_name_prefix
+      name             = "${var.target_groups_name_prefix}-${var.manage_node_group_name}"
       backend_protocol = var.target_groups_backend_protocol
       backend_port     = var.target_groups_backend_port
       target_type      = var.target_type
@@ -78,3 +78,5 @@ resource "aws_autoscaling_attachment" "asg_attachment_bar" {
   autoscaling_group_name = each.value.node_group_resources[0].autoscaling_groups[0].name
   alb_target_group_arn   = var.alb_target_group_arn
 }
+
+

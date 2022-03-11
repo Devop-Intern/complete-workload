@@ -4,37 +4,15 @@ variable "vpc_name" {
   type        = string
   default     = ""
 }
+variable "vpc_name_suffix" {
+  description = "Name suffix of vpc"
+  type        = string
+  default     = "vpc"
+}
 variable "vpc_cidr" {
   description = "cidr"
   type        = string
   default     = ""
-}
-variable "vpc_enable_dns_hostnames" {
-  description = "enable dns hostnames"
-  type        = bool
-  default     = true
-}
-variable "vpc_enable_nat_gateway" {
-  description = "vpc enable nat gateway"
-  type        = bool
-  default     = true
-}
-variable "vpc_single_nat_gateway" {
-  description = "vpc single nat gateway"
-  type        = bool
-  default     = true
-}
-variable "vpc_one_nat_gateway_per_az" {
-  description = "vpc one nat gateway per az"
-  type        = bool
-  default     = false
-}
-
-# subnet for vpc
-variable "subnet_map_public_ip_on_launch" {
-  description = "subnet map public ip on launch"
-  type        = bool
-  default     = false
 }
 variable "vpc_azs" {
   type = list(string)
@@ -45,15 +23,9 @@ variable "vpc_private_subnets" {
 variable "vpc_public_subnets" {
   type = list(string)
 }
-# subnet for database 
-variable "vpc_create_database_subnet_group" {
-  type    = bool
-  default = false
-}
 variable "vpc_database_subnets" {
   type = list(string)
 }
-
 
 
 

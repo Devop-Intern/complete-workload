@@ -1,18 +1,17 @@
 module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
-  name = var.vpc_name
+  name = "${var.vpc_name}-${var.vpc_name_suffix}"
   cidr = var.vpc_cidr
 
-  enable_dns_hostnames         = var.vpc_enable_dns_hostnames
-  enable_nat_gateway           = var.vpc_enable_nat_gateway
-  single_nat_gateway           = var.vpc_single_nat_gateway
-  one_nat_gateway_per_az       = var.vpc_one_nat_gateway_per_az
+  enable_dns_hostnames         = true
+  enable_nat_gateway           = true
+  single_nat_gateway           = true
   azs                          = var.vpc_azs
   private_subnets              = var.vpc_private_subnets
   public_subnets               = var.vpc_public_subnets
-  map_public_ip_on_launch      = var.subnet_map_public_ip_on_launch
-  create_database_subnet_group = var.vpc_create_database_subnet_group
+  map_public_ip_on_launch      = false
+  create_database_subnet_group = false
   database_subnets             = var.vpc_database_subnets
 }
 

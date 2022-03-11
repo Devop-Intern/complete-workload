@@ -30,5 +30,3 @@ output "private_nat_gateway_route_ids" {
 output "igw_id" {
   value = module.vpc.igw_id
 }
-
-
