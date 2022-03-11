@@ -6,7 +6,10 @@ variable "resource_name" {
 variable "eks" {
   type = object({
     cluster_version   = string
-    manage_node_group = map(any)
+    manage_node_group = object({
+      desired_size    = number
+      instance_types  = string
+    })
   })
 }
 
