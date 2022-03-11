@@ -7,11 +7,11 @@
 # # update-kubeconfig
 # update-kubeconfig = "aws eks update-kubeconfig --region ap-southeast-1 --name ... --profile ..."
 
+# resource_name = "..."
 # ################################################################################
 # # Virtual Private Cloud [VPC]
 # ################################################################################
 # vpc = {
-#   vpc_name                                  = "..."
 #   vpc_cidr                                  = "..."
 # vpc list = {
 # vpc_azs              = ["..."]
