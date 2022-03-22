@@ -89,8 +89,76 @@ module "rds" {
 
 # update-kubeconfig 
 resource "null_resource" "kubectl" {
-  depends_on = [module.eks]
+  depends_on = [kubectl_manifest.configmap]
   provisioner "local-exec" {
     command = var.update-kubeconfig
   }
+}
+
+# kube-config
+resource "kubectl_manifest" "kube-config" {
+  depends_on = [module.eks]
+  yaml_body  = <<YAML
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kube-proxy
+  namespace: kube-system
+data:
+  kubeconfig: |-
+    kind: Config
+    apiVersion: v1
+    clusters:
+    - cluster:
+        certificate-authority-data: "${module.eks.cluster_certificate_authority_data}"
+        server: "${module.eks.cluster_endpoint}"
+      name: "${module.eks.cluster_arn}"
+    contexts:
+    - context:
+        cluster: "${module.eks.cluster_arn}"
+        user: "${module.eks.cluster_arn}"
+      name: "${module.eks.cluster_arn}"
+    current-context: "${module.eks.cluster_arn}"
+    preferences: {}
+    users:
+    - name: "${module.eks.cluster_arn}"
+      user:
+        exec:
+          apiVersion: client.authentication.k8s.io/v1alpha1
+          args:
+          - --region
+          - "${var.region}"
+          - eks
+          - get-token
+          - --cluster-name
+          - "${module.eks.cluster_id}"
+          command: aws
+          env:
+          - name: AWS_PROFILE
+            value: "${var.profile}"
+YAML
+}
+
+
+# configmap
+resource "kubectl_manifest" "configmap" {
+  depends_on = [kubectl_manifest.kube-config]
+  yaml_body  = <<YAML
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: aws-auth
+  namespace: kube-system
+data:
+  mapRoles: |
+    - groups:
+      - system:bootstrappers
+      - system:nodes
+      rolearn: "${module.eks.node_groups_iam_role_arn}"
+      username: system:node:{{EC2PrivateDNSName}}
+    - groups:
+      - system:masters
+      rolearn: arn:aws:iam::115595541515:role/aws-reserved/sso.amazonaws.com/ap-southeast-1/AWSReservedSSO_AdministratorAccess_e2ade0d67d656eb8
+      username: AWSReservedSSO_AdministratorAccess_e2ade0d67d656eb8
+YAML
 }
