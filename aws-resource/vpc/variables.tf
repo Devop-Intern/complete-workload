@@ -29,6 +29,9 @@ variable "vpc_database_subnets" {
 
 
 
+variable "security_group_ids" {
+  type = list(string)
+}
 # security group rules ingress
 variable "security_group_rule_type" {
   description = "Type of security group rule"
@@ -52,11 +55,6 @@ variable "security_group_rule_to_port" {
 }
 variable "security_group_rule_protocol" {
   description = "Protocol of security group rule"
-  type        = string
-  default     = ""
-}
-variable "security_group_id" {
-  description = "ID of security group"
   type        = string
   default     = ""
 }
@@ -92,19 +90,8 @@ variable "security_group_rule_protocol2" {
   type        = string
   default     = ""
 }
-variable "security_group_id2" {
-  description = "ID of security group"
-  type        = string
-  default     = ""
-}
 variable "security_group_rule_cidr_blocks2" {
   description = "cidr blocks of security group rule"
   type        = list(string)
   default     = []
 }
-
-
-
-
-
-

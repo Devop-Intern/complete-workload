@@ -15,17 +15,21 @@ module "eks" {
     instance_types = var.default_instance_types
   }
 
-  eks_managed_node_groups = {
-    ("${var.manage_node_group_name}-${var.manage_node_group_name_suffix}") = {
-      min_size       = var.min_size
-      max_size       = var.max_size
-      desired_size   = var.desired_size
-      instance_types = var.instance_types
-      capacity_type  = var.capacity_type
-    }
-  }
+  eks_managed_node_groups = zipmap(
+    [for name, node_group in var.manage_node_groups : "${node_group.node_name}-${var.node_name_suffix}"],
+    [for name, node_group in var.manage_node_groups : {
+      create_iam_role          = node_group.create_iam_role
+      iam_role_name            = node_group.iam_role_name
+      iam_role_arn             = node_group.iam_role_arn
+      iam_role_use_name_prefix = false
+      min_size                 = 0
+      max_size                 = 5
+      capacity_type            = "ON_DEMAND"
+      desired_size             = node_group.desired_size
+      instance_types           = [node_group.instance_types]
+    }]
+  )
 }
-
 
 module "nlb" {
   source  = "terraform-aws-modules/alb/aws"
@@ -36,7 +40,6 @@ module "nlb" {
   name               = "${var.lb_name_prefix}-${var.lb_name}"
   load_balancer_type = var.lb_type
 
-
   #   https_listeners = [
   #     {
   #       port               = 443
@@ -45,20 +48,18 @@ module "nlb" {
   #       target_group_index = 0
   #     }
   #   ]
-  http_tcp_listeners = [
-    {
-      port               = var.http_listeners_port
-      protocol           = var.http_listeners_protocol
-      target_group_index = var.http_listeners_target_group_index
+
+  http_tcp_listeners = [for ports, tcp_listeners in var.lb_http_tcp_listeners : {
+    port     = tcp_listeners.port
+    protocol = var.http_listeners_protocol
     }
   ]
 
-  target_groups = [
-    {
-      name             = "${var.target_groups_name_prefix}-${var.manage_node_group_name}"
-      backend_protocol = var.target_groups_backend_protocol
-      backend_port     = var.target_groups_backend_port
-      target_type      = var.target_type
+  target_groups = [for name, node_group in var.manage_node_groups : {
+    name             = "${var.target_groups_name_prefix}-${node_group.node_name}"
+    backend_protocol = var.target_groups_backend_protocol
+    backend_port     = var.target_groups_backend_port
+    target_type      = var.target_type
     }
   ]
 
@@ -72,11 +73,9 @@ module "nlb" {
 resource "aws_autoscaling_attachment" "asg_attachment_bar" {
   for_each = zipmap(
     [for name, node_group in module.eks.eks_managed_node_groups : name],
-    [for name, node_group in module.eks.eks_managed_node_groups : node_group]
+    [for name, target_group_arn in module.eks.eks_managed_node_groups : target_group_arn]
   )
 
   autoscaling_group_name = each.value.node_group_resources[0].autoscaling_groups[0].name
-  alb_target_group_arn   = var.alb_target_group_arn
+  alb_target_group_arn = var.alb_target_group_arn["${index([for name, node_group in module.eks.eks_managed_node_groups : name], each.key)}"]
 }
-
-
