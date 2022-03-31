@@ -73,9 +73,9 @@ module "nlb" {
 resource "aws_autoscaling_attachment" "asg_attachment_bar" {
   for_each = zipmap(
     [for name, node_group in module.eks.eks_managed_node_groups : name],
-    [for name, target_group_arn in module.eks.eks_managed_node_groups : target_group_arn]
+    [for name, node_group in module.eks.eks_managed_node_groups : node_group]
   )
 
   autoscaling_group_name = each.value.node_group_resources[0].autoscaling_groups[0].name
-  alb_target_group_arn = var.alb_target_group_arn["${index([for name, node_group in module.eks.eks_managed_node_groups : name], each.key)}"]
+  alb_target_group_arn   = var.alb_target_group_arn["${index([for name, node_group in module.eks.eks_managed_node_groups : name], each.key)}"]
 }
