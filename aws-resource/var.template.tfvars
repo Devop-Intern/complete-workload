@@ -26,10 +26,26 @@
 # ################################################################################
 # eks = {
 #   cluster_version = "1.21"
+    # First gruop(group_1) must be created iam_role, so iam_role_arn don't input data, just leave it away.
+    # The rest group mustn't be created iam_role, use exist role instead by input iam_role_arn from group_1.
 # # manage node group  
 # manage_node_group = {
-#   desired_size           = 1
-#   instance_types         = "t3.medium"
+    # group_1 = {
+    #   node_name       = "..."
+    #   desired_size    = "..."
+    #   instance_types  = "t3.medium"
+    #   create_iam_role = true
+    #   iam_role_name   = "..."
+    #   iam_role_arn    = ""
+    # }
+    # # The rest group
+    # group_2 = {
+    #   node_name       = "..."
+    #   desired_size    = "..."
+    #   instance_types  = "t3.medium"
+    #   create_iam_role = false
+    #   iam_role_name   = ""
+    #   iam_role_arn    = "arn:aws:iam::115595541515:role/{$group_1.iam_role_name}"
 # }
 # }
 
@@ -40,6 +56,14 @@
 #   backend_port     = 32593
 #   target_type      = "instance"
 # }
+#   http_tcp_listeners = {
+#     group_1 = {
+#       port = "..."
+#     }
+#     group_2 = {
+#       port = "..."
+#     }
+#   }
 # }
 # # Access Logs [S3]
 # # access_logs = {
