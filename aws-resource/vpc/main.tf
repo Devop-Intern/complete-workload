@@ -18,8 +18,8 @@ module "vpc" {
 # security group rules
 resource "aws_security_group_rule" "access_rule" {
   for_each = zipmap(
-    [for name, node_group in var.security_group_ids : name],
-    [for name, security_group_ids in var.security_group_ids : security_group_ids]
+    [for group, security_group_ids in var.security_group_ids : group],
+    [for group, security_group_ids in var.security_group_ids : security_group_ids]
   )
   type              = var.security_group_rule_type
   description       = var.security_group_rule_description
@@ -32,7 +32,7 @@ resource "aws_security_group_rule" "access_rule" {
 
 resource "aws_security_group_rule" "access_rule2" {
   for_each = zipmap(
-    [for name, node_group in var.security_group_ids : name],
+    [for group, security_group_ids in var.security_group_ids : group],
     [for name, security_group_ids in var.security_group_ids : security_group_ids]
   )
   type              = var.security_group_rule_type2

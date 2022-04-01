@@ -67,8 +67,3 @@ output "token" {
 output "kubeconfig-certificate-authority-data2" {
   value = data.aws_eks_cluster.selected.certificate_authority[0].data
 }
-
-
-
-
-

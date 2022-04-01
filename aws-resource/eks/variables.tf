@@ -117,6 +117,20 @@ variable "lb_type" {
   default     = "network"
 }
 
+variable "target_groups" {
+  type = map(object({
+    name         = string
+    backend_port = number
+  }))
+  default = {
+    "key" = {
+      name         = ""
+      backend_port = 0
+    }
+  }
+}
+
+
 variable "lb_http_tcp_listeners" {
   type = map(object({
     port = number
@@ -144,11 +158,6 @@ variable "target_groups_backend_protocol" {
   description = "backend protocol of target groups"
   type        = string
   default     = ""
-}
-variable "target_groups_backend_port" {
-  description = "backend port of target groups"
-  type        = number
-  default     = 0
 }
 variable "target_type" {
   description = "target type"

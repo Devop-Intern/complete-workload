@@ -49,19 +49,21 @@ module "nlb" {
   #     }
   #   ]
 
-  http_tcp_listeners = [for ports, tcp_listeners in var.lb_http_tcp_listeners : {
-    port     = tcp_listeners.port
-    protocol = var.http_listeners_protocol
+  http_tcp_listeners = [for group, tcp_listeners in var.lb_http_tcp_listeners : {
+    port               = tcp_listeners.port
+    protocol           = var.http_listeners_protocol
+    target_group_index = index([for group, tcp_listeners in var.lb_http_tcp_listeners : group], group)
     }
   ]
 
-  target_groups = [for name, node_group in var.manage_node_groups : {
-    name             = "${var.target_groups_name_prefix}-${node_group.node_name}"
+  target_groups = [for group, target_group in var.target_groups : {
+    name             = "${var.target_groups_name_prefix}-${var.lb_name}-${target_group.name}"
     backend_protocol = var.target_groups_backend_protocol
-    backend_port     = var.target_groups_backend_port
+    backend_port     = target_group.backend_port
     target_type      = var.target_type
     }
   ]
+
 
   # access_logs = {
   #   bucket  = var.access_logs_bucket_name

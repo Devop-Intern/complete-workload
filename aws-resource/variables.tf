@@ -20,11 +20,12 @@ variable "eks" {
 # NLB
 variable "nlb" {
   type = object({
-    target_groups = object({
-      backend_protocol = string
-      backend_port     = number
-      target_type      = string
-    })
+    backend_protocol = string
+    target_type      = string
+    target_groups = map(object({
+      name         = string
+      backend_port = number
+    }))
     http_tcp_listeners = map(object({
       port = number
     }))
