@@ -61,9 +61,9 @@ output "cluster_id" {
 output "endpoint" {
   value = data.aws_eks_cluster.selected.endpoint
 }
-output "token" {
-  value = data.aws_eks_cluster_auth.selected.token
-}
+# output "token" {
+#   value = data.aws_eks_cluster_auth.selected.token
+# }
 output "kubeconfig-certificate-authority-data2" {
   value = data.aws_eks_cluster.selected.certificate_authority[0].data
 }

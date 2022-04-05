@@ -27,6 +27,9 @@ module "eks" {
       capacity_type            = "ON_DEMAND"
       desired_size             = node_group.desired_size
       instance_types           = [node_group.instance_types]
+      labels = {
+        IngressLabel = node_group.node_name
+      }
     }]
   )
 }
