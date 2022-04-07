@@ -1,7 +1,6 @@
 module "db" {
-  source  = "terraform-aws-modules/rds/aws"
-  version = "~> 3.0"
-
+  source                = "terraform-aws-modules/rds/aws"
+  version               = "~> 3.5.0"
   identifier            = "${var.resource_name}-${var.rds_name_suffix}"
   engine                = var.rds_engine
   engine_version        = var.rds_engine_version

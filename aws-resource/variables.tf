@@ -5,30 +5,38 @@ variable "resource_name" {
 # EKS
 variable "eks" {
   type = object({
-    cluster_version   = string
-    manage_node_group = object({
+    cluster_version = string
+    manage_node_groups = map(object({
+      node_name       = string
       desired_size    = number
       instance_types  = string
-    })
+      create_iam_role = bool
+      iam_role_name   = string
+      iam_role_arn    = string
+    }))
   })
 }
 
 # NLB
 variable "nlb" {
   type = object({
-    target_groups = object({
-      backend_protocol = string
-      backend_port     = number
-      target_type      = string
-    })
+    backend_protocol = string
+    target_type      = string
+    target_groups = map(object({
+      name         = string
+      backend_port = number
+    }))
+    http_tcp_listeners = map(object({
+      port = number
+    }))
   })
 }
 # access_logs    = map(string)
 
 variable "vpc" {
   type = object({
-    vpc_cidr                         = string
-    vpc_list                         = map(list(string))
+    vpc_cidr = string
+    vpc_list = map(list(string))
   })
 }
 

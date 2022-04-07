@@ -51,26 +51,33 @@ variable "default_instance_types" {
   default     = ["t3.medium"]
 }
 
-# managed node group
-variable "manage_node_group_name" {
-  description = "Name of manage node group"
-  type        = string
-  default     = ""
+# managed node groups
+variable "manage_node_groups" {
+  type = map(object({
+    node_name       = string
+    desired_size    = number
+    instance_types  = string
+    create_iam_role = bool
+    iam_role_name   = string
+    iam_role_arn    = string
+    })
+  )
+  default = {
+    "key" = {
+      create_iam_role = true
+      desired_size    = 1
+      iam_role_arn    = ""
+      iam_role_name   = ""
+      instance_types  = ""
+      node_name       = ""
+    }
+  }
 }
-variable "manage_node_group_name_suffix" {
+
+variable "node_name_suffix" {
   description = "Name suffix of manage node group"
   type        = string
   default     = "node-group"
-}
-variable "min_size" {
-  description = "minimum number of manage node "
-  type        = number
-  default     = 1
-}
-variable "max_size" {
-  description = "maximum number of manage node "
-  type        = number
-  default     = 10
 }
 variable "desired_size" {
   description = "desired number of manage node "
@@ -82,11 +89,7 @@ variable "instance_types" {
   type        = list(string)
   default     = []
 }
-variable "capacity_type" {
-  description = "capacity type of manage node group"
-  type        = string
-  default     = "ON_DEMAND"
-}
+
 
 # NLB
 variable "lb_vpc_id" {
@@ -104,9 +107,9 @@ variable "lb_name" {
   type        = string
   default     = ""
 }
-variable "lb_name_prefix"{
-  type        = string
-  default     = "nlb"
+variable "lb_name_prefix" {
+  type    = string
+  default = "nlb"
 }
 variable "lb_type" {
   description = "Type of load balancer"
@@ -114,21 +117,35 @@ variable "lb_type" {
   default     = "network"
 }
 
-# nlb_listener
-variable "http_listeners_port" {
-  description = "http listener port for load balancer"
-  type        = number
-  default     = 80
+variable "target_groups" {
+  type = map(object({
+    name         = string
+    backend_port = number
+  }))
+  default = {
+    "key" = {
+      name         = ""
+      backend_port = 0
+    }
+  }
 }
+
+
+variable "lb_http_tcp_listeners" {
+  type = map(object({
+    port = number
+  }))
+  default = {
+    "key" = {
+      port = 0
+    }
+  }
+}
+
 variable "http_listeners_protocol" {
   description = "http listener protocol for load balancer"
   type        = string
   default     = "TCP"
-}
-variable "http_listeners_target_group_index" {
-  description = "http listener target group index for load balancer"
-  type        = number
-  default     = 0
 }
 
 #nlb_target_group
@@ -141,11 +158,6 @@ variable "target_groups_backend_protocol" {
   description = "backend protocol of target groups"
   type        = string
   default     = ""
-}
-variable "target_groups_backend_port" {
-  description = "backend port of target groups"
-  type        = number
-  default     = 0
 }
 variable "target_type" {
   description = "target type"
@@ -171,15 +183,17 @@ variable "access_logs_enabled" {
 }
 
 
-
 # autoscaling attachment
 variable "autoscaling_group_name" {
   description = "Name of autoscaling group"
   type        = string
   default     = ""
 }
+
+
 variable "alb_target_group_arn" {
   description = "alb target group arn"
-  type        = string
-  default     = ""
+  type        = list(string)
+  default     = []
 }
+
