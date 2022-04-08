@@ -1,6 +1,6 @@
 # resource "kubectl_manifest" "..." {
 #   depends_on = [helm_release.argocd-helm]
-#   yaml_body = <<YAML
+#   yaml_body  = <<YAML
 # apiVersion: argoproj.io/v1alpha1
 # kind: Application
 # metadata:
@@ -10,7 +10,7 @@
 #   project: default
 #   source:
 #     repoURL: "https://github.com/Devop-Intern/helm-template.git"
-#     path: helm
+#     path: helm/kong
 #     targetRevision: HEAD
 #     helm:
 #       values: |-
@@ -21,16 +21,16 @@
 #           containerPort: 80
 #           serviceType: ClusterIP
 #           servicePort: 80
-#           path: /echo
+#           path: /kongecho
 #           pathType: Exact
-#         helloworld:
+#         helloserver:
 #           name: ...
 #           image: tutum/hello-world:latest
 #           replicas: 1
 #           containerPort: 80
 #           serviceType: ClusterIP
 #           servicePort: 80
-#           path: /hello
+#           path: /konghello
 #           pathType: Exact
 #         pgadmin:
 #           name: ...
@@ -39,44 +39,41 @@
 #           containerPort: 80
 #           serviceType: ClusterIP
 #           servicePort: 80
-#           path: /pgadmin
+#           path: /kongpgadmin
 #           pathType: Prefix
 #           email: ...
 #           password: ...
-#           scriptname: /pgadmin
+#           scriptname: /kongpgadmin
 #         ingress:
 #           name: ...
+#           pgadmin_name: ...
 #           host: ...
-#           annotations:
-#             kubernetes.io/ingress.class: nginx
-#             nginx.org/rewrites: "serviceName=... rewrite=/pgadmin"
-#             nginx.org/rewrites: "serviceName=... rewrite=/"
-#             nginx.org/rewrites: "serviceName=... rewrite=/"
+#         ingressctl:
+#           name: kong-ingress-controller
+#           nodename: ...
+#           namespaceapp: argocd
+#           namespacedest: kong
+#           project: default
+#           chart: kong
+#           repo: https://charts.konghq.com
+#           targetrevision: 2.7.0
+#           server: https://kubernetes.default.svc
 #         nodeport:
-#           name: ...
-#           namespace: nginx-ingress
+#           name: kong
+#           namespace: kong
 #           type: NodePort
 #           porthttp: 80
 #           porthttps: 443
-#           tghttp: 80
-#           tghttps: 443
+#           tghttp: 8000
+#           tghttps: 8443
 #           protocal: TCP
+#           nodeport: ...
 #           http: http
-#           nodeport: 32593
 #           https: https
-#           app: nginx-ingress-nginx-ingress
-#         nginx:
-#           name: nginx-ingress
-#           namespaceapp: argocd
-#           namespacedest: nginx-ingress
-#           project: default
-#           chart: nginx-ingress
-#           repo: https://helm.nginx.com/stable
-#           targetrevision: 0.4.1
-#           server: https://kubernetes.default.svc
+#           app: kong
 #   destination:
 #     server: "https://kubernetes.default.svc"
-#     namespace: helm
+#     namespace: kong-workload
 #   syncPolicy:
 #     automated:
 #       prune: true

@@ -56,7 +56,7 @@ module "vpc" {
   security_group_rule_to_port2     = 65535
   security_group_rule_protocol2    = "all"
   security_group_rule_cidr_blocks2 = ["0.0.0.0/0"]
-  # ]
+  
 }
 
 module "rds" {

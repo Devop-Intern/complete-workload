@@ -37,6 +37,7 @@ module "eks" {
 module "nlb" {
   source  = "terraform-aws-modules/alb/aws"
   version = "~> 6.0"
+  # depends_on = [module.eks]
 
   vpc_id             = var.lb_vpc_id
   subnets            = var.lb_subnets
