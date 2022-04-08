@@ -58,7 +58,7 @@
 #   target_groups = {
 #     group_1 = {
 #       name         = "kong"
-#       backend_port = ...
+#       backend_port = 8000
 #     }
 #     group_2 = {
 #       name         = "traefik"
