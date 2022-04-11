@@ -108,3 +108,70 @@
 #   }
 # }
 
+
+
+# host = "..."
+# ################################################################################
+# # Kong App
+# ################################################################################
+# kong = {
+#   metadata_name = "kong-app"
+#   echo = {
+#     name = "kong-echo"
+#     path = "/kongecho"
+#   }
+#   hello = {
+#     name = "kong-hello"
+#     path = "/konghello"
+#   }
+#   pgadmin = {
+#     name       = "kong-pgadmin"
+#     path       = "/kongpgadmin"
+#     email      = "..."
+#     password   = "..."
+#     scriptname = "/kongpgadmin"
+#   }
+#   ingress = {
+#     name         = "kong-ingress"
+#     pgadmin_name = "kong-pgadmin-ingress"
+#   }
+#   ingressctl = {
+#     name = "kong-ingress-controller"
+#   }
+#   nodeport = {
+#     name = "kong"
+#   }
+# }
+
+
+# ################################################################################
+# # Traefik App
+# ################################################################################
+# traefik = {
+#   metadata_name = "traefik-app"
+#   echo = {
+#     name = "traefik-echo"
+#     path = "/traefikecho"
+#   }
+#   hello = {
+#     name = "traefik-hello"
+#     path = "/traefikhello"
+#   }
+#   pgadmin = {
+#     name       = "traefik-pgadmin"
+#     path       = "/traefikpgadmin"
+#     email      = "..."
+#     password   = "..."
+#     scriptname = "/traefikpgadmin"
+#   }
+#   ingress = {
+#     name         = "traefik-ingress"
+#     pgadmin_name = "traefik-pgadmin-ingress"
+#   }
+#   ingressctl = {
+#     name = "traefik-ingress-controller"
+#   }
+#   nodeport = {
+#     name = "traefik"
+#   }
+# }
