@@ -16,7 +16,7 @@ module "eks" {
   }
 
   eks_managed_node_groups = zipmap(
-    [for name, node_group in var.manage_node_groups : "${var.resource_name}-${node_group.node_name}-${var.node_name_suffix}"],
+    [for name, node_group in var.manage_node_groups : "${var.cluster_name}-${node_group.node_name}-${var.node_name_suffix}"],
     [for name, node_group in var.manage_node_groups : {
       create_iam_role          = node_group.create_iam_role
       iam_role_name            = node_group.iam_role_name

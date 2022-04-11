@@ -16,7 +16,7 @@ output "cluster_arn" {
 }
 
 output "node_groups_iam_role_arn" {
-  value = lookup("${lookup(module.eks.eks_managed_node_groups, "${var.manage_node_groups.group_1.node_name}-${var.node_name_suffix}")}", "iam_role_arn")
+  value = lookup("${lookup(module.eks.eks_managed_node_groups, "${var.cluster_name}-${var.manage_node_groups.group_1.node_name}-${var.node_name_suffix}")}", "iam_role_arn")
 }
 
 
