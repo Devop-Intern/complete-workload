@@ -57,3 +57,35 @@ variable "profile" {
 variable "region" {
   type = string
 }
+
+
+
+variable "host" {
+  type = string
+}
+
+# kong app
+variable "kong" {
+  type = object({
+    metadata_name = string
+    echo          = map(string)
+    hello         = map(string)
+    pgadmin       = map(string)
+    ingress       = map(string)
+    ingressctl    = map(string)
+    nodeport      = map(string)
+  })
+}
+
+# traefik app
+variable "traefik" {
+  type = object({
+    metadata_name = string
+    echo          = map(string)
+    hello         = map(string)
+    pgadmin       = map(string)
+    ingress       = map(string)
+    ingressctl    = map(string)
+    nodeport      = map(string)
+  })
+}
