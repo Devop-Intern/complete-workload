@@ -24,6 +24,16 @@ terraform {
   #   }
 }
 
+provider "kubernetes" {
+  config_path = "~/.kube/config"
+}
+
+provider "helm" {
+  kubernetes {
+    config_path = "~/.kube/config"
+  }
+}
+
 provider "kubectl" {
   host                   = data.aws_eks_cluster.selected.endpoint
   cluster_ca_certificate = base64decode(data.aws_eks_cluster.selected.certificate_authority[0].data)
