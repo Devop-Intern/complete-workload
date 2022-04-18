@@ -159,7 +159,7 @@ YAML
 }
 
 # update-kubeconfig 
-resource "null_resource" "configmap" {
+resource "null_resource" "kubeconfig" {
   depends_on = [kubectl_manifest.configmap]
   provisioner "local-exec" {
     command = var.update-kubeconfig
