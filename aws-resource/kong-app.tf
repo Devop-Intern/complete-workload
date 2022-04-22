@@ -4,7 +4,7 @@ resource "kubectl_manifest" "kong-app" {
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ${var.kong.metadata_name} 
+  name: ${var.kong.metadata_name}
   namespace: argocd
 spec:
   project: default
@@ -47,7 +47,7 @@ spec:
         ingress:
           name: ${var.kong.ingress.name}
           pgadmin_name: ${var.kong.ingress.pgadmin_name}
-          host: ${var.host}
+          host: ${module.eks.lb_dns_name}
         ingressctl:
           name: ${var.kong.ingressctl.name}
           nodename: ${var.eks.manage_node_groups.group_1.node_name}
