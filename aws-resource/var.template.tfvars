@@ -57,17 +57,17 @@
 #   target_type      = "instance"
 #   target_groups = {
 #     group_1 = {
-#       name         = "traefik"
-#       backend_port = 8000
+#       name         = "kong"
+#       backend_port = ...     #port > 30000
 #     }
 #     group_2 = {
-#       name         = "kong"
-#       backend_port = ...
+#       name         = "traefik"
+#       backend_port = ...     #port > 30000
 #     }
 #   }
 #   http_tcp_listeners = {
 #     group_1 = {
-#       port = ...
+#       port = ...           #kong use port 8000
 #     }
 #     group_2 = {
 #       port = ...
@@ -88,7 +88,7 @@
 # rds = {
 #   app = {
 #   rds_engine                      = "postgres"
-#   rds_engine_version              = "14.1"
+#   rds_engine_version              ="14.1"
 #   rds_instance_class              = "db.t4g.small"
 #   rds_allocated_storage           = 20
 #   rds_max_allocated_storage       = 100

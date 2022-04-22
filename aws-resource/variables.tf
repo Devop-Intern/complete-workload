@@ -60,9 +60,6 @@ variable "region" {
 
 
 
-variable "host" {
-  type = string
-}
 
 # kong app
 variable "kong" {

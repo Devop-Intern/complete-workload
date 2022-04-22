@@ -47,7 +47,7 @@ spec:
         ingress:
           name: ${var.traefik.ingress.name}
           pgadmin_name: ${var.traefik.ingress.pgadmin_name}
-          host: ${var.host}
+          host: ${module.eks.lb_dns_name}
         ingressctl:
           name: ${var.traefik.ingressctl.name}
           nodename: ${var.eks.manage_node_groups.group_2.node_name}
